@@ -73,3 +73,48 @@ test("preCreateActor links the party token and applies default ownership", () =>
   assert.equal("ownership.default" in sourceUpdates[0], false, "explicit ownership is kept");
   for (const fn of hooks.on.preCreateActor) fn({ type: "pilot", updateSource: () => assert.fail("pilot touched") }, {});
 });
+
+test("sheet tab action switches tabs from any click inside the header buttons", async () => {
+  const { PartySheet } = await import("../scripts/apps/party-sheet.js");
+  const { lpTab, lpEditImage, revokeLicense } = PartySheet.DEFAULT_OPTIONS.actions;
+  assert.equal(typeof revokeLicense, "function");
+  const anchors = ["squad", "mission", "reserves", "notes"].map(tab => ({
+    dataset: { tab }, cls: new Set(tab === "squad" ? ["active"] : []), attrs: {},
+    classList: { toggle(c, on) { on ? this.owner.cls.add(c) : this.owner.cls.delete(c); } },
+    setAttribute(k, v) { this.attrs[k] = v; }
+  }));
+  for (const a of anchors) a.classList.owner = a;
+  const nav = { querySelectorAll: () => anchors };
+  const calls = [];
+  const app = { tabGroups: { primary: "squad" }, changeTab: (...args) => calls.push(args), element: { querySelectorAll: () => [] } };
+  const target = { dataset: { tab: "mission", group: "primary" }, closest: () => nav };
+  lpTab.call(app, { preventDefault() {} }, target);
+  assert.equal(calls.length, 1);
+  assert.deepEqual(calls[0].slice(0, 2), ["mission", "primary"]);
+  assert.equal(calls[0][2].navElement, nav);
+  assert.deepEqual(anchors.map(a => a.cls.has("active")), [false, true, false, false]);
+  assert.equal(anchors[1].attrs["aria-selected"], "true");
+
+  // Fallback when changeTab throws: classes on the tab sections are toggled directly.
+  const sections = ["squad", "reserves"].map(tab => ({ dataset: { tab }, on: false, classList: { toggle(_c, v) { this.s.on = v; } } }));
+  for (const sct of sections) sct.classList.s = sct;
+  const broken = { tabGroups: { primary: "squad" }, changeTab() { throw new Error("nope"); }, element: { querySelectorAll: () => sections } };
+  const warn = console.warn;
+  console.warn = () => {};
+  lpTab.call(broken, { preventDefault() {} }, { dataset: { tab: "reserves", group: "primary" }, closest: () => nav });
+  console.warn = warn;
+  assert.equal(broken.tabGroups.primary, "reserves");
+  assert.deepEqual(sections.map(sct => sct.on), [false, true]);
+
+  // Image: opens a FilePicker for images and saves the chosen path on the party.
+  let picker;
+  CONFIG.ux = { FilePicker: class { constructor(o) { this.o = o; picker = this; } browse() { return "browsing"; } } };
+  const updates = [];
+  const sheet = { isEditable: true, document: { _source: { img: "old.svg" }, update: async d => updates.push(d) } };
+  assert.equal(await lpEditImage.call(sheet), "browsing");
+  assert.equal(picker.o.type, "image");
+  assert.equal(picker.o.current, "old.svg");
+  await picker.o.callback("new.webp");
+  assert.deepEqual(updates, [{ img: "new.webp" }]);
+  assert.equal(await lpEditImage.call({ ...sheet, isEditable: false }), undefined);
+});

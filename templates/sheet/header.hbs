@@ -27,12 +27,15 @@
   </div>
   <div class="lp-header-side">
     {{#if editable}}
-    <button type="button" class="lp-icon-button" data-action="editImage" data-edit="img" data-tooltip="LANCERPARTY.Sheet.EditImage" aria-label="{{localize "LANCERPARTY.Sheet.EditImage"}}"><i class="fa-solid fa-image"></i></button>
+    <button type="button" class="lp-portrait-button" data-action="lpEditImage" data-tooltip="LANCERPARTY.Sheet.EditImage" aria-label="{{localize "LANCERPARTY.Sheet.EditImage"}}">
+      <img src="{{party.img}}" alt="" inert>
+      <i class="fa-solid fa-camera" inert></i>
+    </button>
     {{/if}}
   </div>
-  <nav class="lp-tabs" aria-label="{{localize "LANCERPARTY.Sheet.Tabs"}}">
+  <nav class="lp-tabs" data-group="primary" aria-label="{{localize "LANCERPARTY.Sheet.Tabs"}}">
     {{#each tabs as |t|}}
-    <a class="lp-tab-button {{t.cssClass}}" data-action="tab" data-group="primary" data-tab="{{t.id}}"><i class="{{t.icon}}" inert></i> <span>{{localize t.label}}</span></a>
+    <a class="lp-tab-button {{t.cssClass}}" data-action="lpTab" data-group="primary" data-tab="{{t.id}}" role="tab" aria-selected="{{#if t.active}}true{{else}}false{{/if}}"><i class="{{t.icon}}" inert></i> <span inert>{{localize t.label}}</span></a>
     {{/each}}
   </nav>
 </header>

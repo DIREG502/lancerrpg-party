@@ -51,6 +51,7 @@ On first load in a world without a party, the GM's client creates a party called
 | Add to combat | owner or contributing member, for tokens they own | Adds the squad's tokens on this scene to the encounter. The GM's click creates an encounter if there is none. The party token itself never joins. |
 | Full Repair | party owner | One confirmation, then **Lancer's own Full Repair** for each member. A pilot's repair includes the active mech. |
 | +1 License Level | GM | Raises each pilot's LL by one (max 12) and posts a summary. Players then spend it on their pilot sheet as usual. |
+| −1 License Level | GM | Lowers each pilot's LL by one (minimum 0), for corrections or house rules. |
 | End mission | GM | Logs the mission with its outcome, optionally runs Full Repair, +1 LL, resets clocks, clears objectives, starts the next mission number and posts a summary. |
 | Post roster | owner or contributing member | Posts the squad and mech status to chat. |
 

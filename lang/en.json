@@ -43,7 +43,9 @@
       "LicenseHint": "Raise every member pilot's License Level by one",
       "EndMission": "End mission",
       "Roster": "Post roster",
-      "RosterHint": "Post the squad and mech status to chat"
+      "RosterHint": "Post the squad and mech status to chat",
+      "LicenseDown": "−1 License Level",
+      "LicenseDownHint": "Lower every member pilot's License Level by one (minimum 0)"
     },
     "Member": {
       "LL": "LL {level}",
@@ -217,7 +219,10 @@
       "Body": "Raise the License Level of every pilot in the party by 1 (maximum 12)? Players then pick their new license, talent or skill on their pilot sheet.",
       "ChatTitle": "License Level up",
       "Cap": "Maximum License Level is {max}.",
-      "NoneChanged": "No pilot's License Level changed."
+      "NoneChanged": "No pilot's License Level changed.",
+      "DownTitle": "Lower License Level",
+      "DownBody": "Lower the License Level of every pilot in the party by 1 (minimum 0)? Players should remove the license, talent or skill they gained at that level on their pilot sheet.",
+      "DownChatTitle": "License Level down"
     },
     "EndMission": {
       "Title": "End mission",

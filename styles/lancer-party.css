@@ -786,6 +786,44 @@ body.theme-ssc :is(.lancer-party, .lancer-parties, .lancer-party-card, .lancer-p
   right: 12px;
 }
 
+.lancer-party-sheet .lp-portrait-button {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  overflow: hidden;
+  background: rgb(0 0 0 / 0.3);
+  border: 2px solid rgb(255 255 255 / 0.7);
+  border-radius: 0;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  cursor: pointer;
+}
+
+.lancer-party-sheet .lp-portrait-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+.lancer-party-sheet .lp-portrait-button i {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+  background: rgb(0 0 0 / 0.45);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.lancer-party-sheet .lp-portrait-button:hover i,
+.lancer-party-sheet .lp-portrait-button:focus-visible i { opacity: 1; }
+
+.lancer-party-sheet .lp-tab-button > * { pointer-events: none; }
+
 .lancer-party-sheet .lp-icon-button {
   width: 30px;
   height: 30px;

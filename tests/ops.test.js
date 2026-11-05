@@ -127,4 +127,8 @@ describe("planLicenseAward", () => {
     const plan = planLicenseAward([{ uuid: "a", level: 3 }, { uuid: "b", level: 12 }, { uuid: "c", level: 11 }], 2);
     assert.deepEqual(plan, [{ uuid: "a", from: 3, to: 5 }, { uuid: "c", from: 11, to: 12 }]);
   });
+  test("negative awards lower LL and stop at 0", () => {
+    const plan = planLicenseAward([{ uuid: "a", level: 3 }, { uuid: "b", level: 0 }], -1);
+    assert.deepEqual(plan, [{ uuid: "a", from: 3, to: 2 }]);
+  });
 });

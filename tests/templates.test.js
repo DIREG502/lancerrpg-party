@@ -72,8 +72,16 @@ describe("sheet templates render", () => {
     const html = tpl("sheet/header.hbs")({ ...base, tabs: tabList, missionStatusLabel: "Active" });
     assert.match(html, /data-action="setActive"/);
     assert.match(html, /class="lp-terminal"/);
-    assert.equal((html.match(/data-action="tab"/g) ?? []).length, 4);
-    assert.match(html, /lp-tab-button active" data-action="tab" data-group="primary" data-tab="squad"/);
+    assert.equal((html.match(/data-action="lpTab"/g) ?? []).length, 4);
+    assert.match(html, /lp-tab-button active" data-action="lpTab" data-group="primary" data-tab="squad"/);
+    // Clicks must land on the button itself: everything inside it is inert.
+    for (const m of html.matchAll(/<a class="lp-tab-button[^>]*>(.*?)<\/a>/g)) {
+      const children = [...m[1].matchAll(/<(?:i|span)\s[^>]*>/g)].map(c => c[0]);
+      assert.equal(children.length, 2);
+      for (const child of children) assert.ok(child.includes(" inert"), child);
+    }
+    assert.match(html, /data-action="lpEditImage"/);
+    assert.ok(!/data-action="editImage"/.test(html), "core editImage needs an <img>; not used");
   });
 
   test("sidebar: hex cluster, squad meters, permission-gated actions", () => {
@@ -81,7 +89,7 @@ describe("sheet templates render", () => {
     const gm = tpl("sheet/sidebar.hbs")(ctx);
     assert.equal((gm.match(/class="lp-hex /g) ?? []).length + (gm.match(/class="lp-hex"/g) ?? []).length, 4);
     assert.match(gm, /lp-meter lp-meter-hp" style="--lp-fill: 80%"/);
-    for (const action of ["groupCheck", "deploy", "recall", "combat", "fullRepair", "awardLicense", "endMission", "roster"]) {
+    for (const action of ["groupCheck", "deploy", "recall", "combat", "fullRepair", "awardLicense", "revokeLicense", "endMission", "roster"]) {
       assert.match(gm, new RegExp(`data-action="${action}"`), action);
     }
     const player = tpl("sheet/sidebar.hbs")({ ...ctx, manage: false, isGM: false, contribute: true });

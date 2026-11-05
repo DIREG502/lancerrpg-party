@@ -158,7 +158,7 @@ async function lancerFullRepair(actor) {
 }
 
 /**
- * Raise every member pilot's License Level.
+ * Raise (or, with a negative amount, lower) every member pilot's License Level, clamped to 0–12.
  * @param {Actor} party
  * @param {number} [amount=1]
  * @param {{chat?: boolean}} [options]
@@ -177,7 +177,7 @@ export async function awardLicenseLevel(party, amount = 1, { chat = true } = {})
     const rows = applied.map(a => `<li><strong>${escapeHTML(a.name)}</strong>: LL ${a.from} → LL ${a.to}</li>`).join("");
     await ChatMessage.implementation.create({
       speaker: ChatMessage.implementation.getSpeaker({ actor: party }),
-      content: `<div class="lancer-party-card"><h3>${localize("LANCERPARTY.License.ChatTitle")}</h3><ul>${rows}</ul><p class="hint">${format("LANCERPARTY.License.Cap", { max: MAX_LICENSE_LEVEL })}</p></div>`
+      content: `<div class="lancer-party-card"><h3>${localize(amount < 0 ? "LANCERPARTY.License.DownChatTitle" : "LANCERPARTY.License.ChatTitle")}</h3><ul>${rows}</ul><p class="hint">${format("LANCERPARTY.License.Cap", { max: MAX_LICENSE_LEVEL })}</p></div>`
     });
   }
   if (!plan.length) ui.notifications.info(localize("LANCERPARTY.License.NoneChanged"));

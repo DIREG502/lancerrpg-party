@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 (2026-11-05)
+
+### Fixed
+
+- The **Mission**, **Reserves** and **Notes** tabs couldn't be opened. The tab buttons are now handled by the module itself instead of relying on Foundry's built-in tab handler, which ignored clicks on the button's label.
+- **Change party image** did nothing: Foundry's built-in image editor only works on an `<img>` element. The header now shows a clickable portrait that opens the file picker and saves the image directly.
+
+### Added
+
+- **−1 License Level** action (GM): lowers every member pilot's License Level by one, minimum 0, with a confirmation and a chat summary.
+
 ## 1.1.0 (2026-11-05)
 
 ### Changed

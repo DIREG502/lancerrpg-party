@@ -32,6 +32,9 @@ export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     window: { resizable: true, icon: "fa-solid fa-people-group" },
     form: { submitOnChange: true },
     actions: {
+      lpTab: PartySheet.#onTab,
+      lpEditImage: PartySheet.#onEditImage,
+      revokeLicense: PartySheet.#onRevokeLicense,
       openMember: PartySheet.#onOpenMember,
       removeMember: PartySheet.#onRemoveMember,
       pruneMissing: PartySheet.#onPruneMissing,
@@ -374,6 +377,53 @@ export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       case "role": return this.#op({ type: "member.role", uuid: el.dataset.uuid, role: value });
       case "manna": return this.#op({ type: "manna.set", value: Number(value) });
     }
+  }
+
+  /**
+   * Switch tabs from the header buttons. Handled here (not by the core "tab" action) so that
+   * clicks on the icon/label inside a button and the custom nav markup always work.
+   */
+  static #onTab(event, target) {
+    event.preventDefault();
+    const tab = target.dataset.tab;
+    const group = target.dataset.group ?? "primary";
+    if (!tab || this.tabGroups[group] === tab) return;
+    const nav = target.closest(".lp-tabs");
+    try {
+      this.changeTab(tab, group, { event, navElement: nav });
+    } catch (err) {
+      // Fallback: toggle the classes ourselves if the core API rejects the custom nav.
+      console.warn(`${MODULE_ID} | changeTab failed, switching tabs manually`, err);
+      this.tabGroups[group] = tab;
+      for (const el of this.element.querySelectorAll(`.tab[data-group="${group}"]`)) el.classList.toggle("active", el.dataset.tab === tab);
+    }
+    for (const a of nav?.querySelectorAll("[data-tab]") ?? []) {
+      const active = a.dataset.tab === tab;
+      a.classList.toggle("active", active);
+      a.setAttribute("aria-selected", String(active));
+    }
+  }
+
+  /** Open a file picker for the party image and save the choice directly. */
+  static async #onEditImage() {
+    if (!this.isEditable) return;
+    const party = this.document;
+    const FilePicker = CONFIG.ux?.FilePicker ?? foundry.applications.apps.FilePicker.implementation;
+    const picker = new FilePicker({
+      type: "image",
+      current: party._source.img,
+      callback: path => guarded(() => party.update({ img: path }))
+    });
+    return picker.browse();
+  }
+
+  static async #onRevokeLicense() {
+    const ok = await DialogV2.confirm({
+      window: { title: localize("LANCERPARTY.License.DownTitle") },
+      content: `<p>${localize("LANCERPARTY.License.DownBody")}</p>`,
+      rejectClose: false
+    });
+    if (ok) await guarded(() => actions.awardLicenseLevel(this.document, -1));
   }
 
   static #uuidOf(target) {
