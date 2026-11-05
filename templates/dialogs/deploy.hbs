@@ -1,0 +1,18 @@
+<div class="lancer-party-dialog">
+  <p>{{localize "LANCERPARTY.Deploy.Body"}}</p>
+  <div class="form-group">
+    <label for="lp-deploy-mode">{{localize "LANCERPARTY.Deploy.Mode"}}</label>
+    <select id="lp-deploy-mode" name="mode">
+      <option value="auto" selected>{{localize "LANCERPARTY.Deploy.ModeAuto"}}</option>
+      <option value="mech">{{localize "LANCERPARTY.Deploy.ModeMech"}}</option>
+      <option value="pilot">{{localize "LANCERPARTY.Deploy.ModePilot"}}</option>
+    </select>
+  </div>
+  {{#if hasPartyToken}}
+  <div class="form-group">
+    <label class="checkbox"><input type="checkbox" name="replacePartyToken" checked> {{localize "LANCERPARTY.Deploy.ReplacePartyToken"}}</label>
+  </div>
+  {{else}}
+  <p class="hint">{{localize "LANCERPARTY.Deploy.NoPartyToken"}}</p>
+  {{/if}}
+</div>

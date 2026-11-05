@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Lancer Party</title>
+  <polygon points="256,16 464,136 464,376 256,496 48,376 48,136" fill="#1b1b1b" stroke="#991e2a" stroke-width="20"/>
+  <polygon points="256,56 428,156 428,356 256,456 84,356 84,156" fill="none" stroke="#c22d3b" stroke-width="4" stroke-dasharray="18 10"/>
+  <g fill="#e8e8e8">
+    <!-- centre figure -->
+    <circle cx="256" cy="170" r="42"/>
+    <path d="M186 330 q0 -92 70 -92 q70 0 70 92 z"/>
+    <!-- left figure -->
+    <circle cx="160" cy="226" r="32" opacity="0.85"/>
+    <path d="M106 352 q0 -72 54 -72 q34 0 46 30 q-14 20 -16 42 z" opacity="0.85"/>
+    <!-- right figure -->
+    <circle cx="352" cy="226" r="32" opacity="0.85"/>
+    <path d="M406 352 q0 -72 -54 -72 q-34 0 -46 30 q14 20 16 42 z" opacity="0.85"/>
+  </g>
+  <rect x="150" y="372" width="212" height="18" fill="#991e2a"/>
+</svg>

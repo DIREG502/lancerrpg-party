@@ -1,0 +1,18 @@
+<div class="lancer-party-card lp-roster">
+  <header><img src="{{party.img}}" alt="" width="32" height="32"><h3>{{party.name}}</h3></header>
+  <ul>
+    {{#each members as |m|}}
+    <li>
+      <strong>{{m.name}}</strong>{{#if m.callsign}} “{{m.callsign}}”{{/if}}{{#if m.isPilot}} · {{localize "LANCERPARTY.Member.LL" level=m.level}}{{/if}}
+      {{#if m.mech}}
+      <div class="lp-roster-mech">
+        {{m.mech.name}}{{#if m.mech.frame}} ({{m.mech.frame}}){{/if}}
+        {{#if m.mech.hp}} · {{localize "LANCERPARTY.Stat.HP"}} {{m.mech.hp.value}}/{{m.mech.hp.max}}{{/if}}
+        {{#if m.mech.structure}} · {{localize "LANCERPARTY.Stat.StructureShort"}} {{m.mech.structure.value}}/{{m.mech.structure.max}}{{/if}}
+        {{#if m.mech.stress}} · {{localize "LANCERPARTY.Stat.StressShort"}} {{m.mech.stress.value}}/{{m.mech.stress.max}}{{/if}}
+      </div>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ul>
+</div>

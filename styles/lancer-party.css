@@ -1,0 +1,1072 @@
+/*
+ * Lancer Party styles.
+ * Colours come from the active Lancer theme (body.theme-*) with fallbacks, so the sheet follows
+ * whichever theme the table uses (GMS, HORUS, IPS-N, ...).
+ */
+
+.lancer-party,
+.lancer-parties,
+.lancer-party-card,
+.lancer-party-dialog {
+  --lp-primary: var(--primary-color, #991e2a);
+  --lp-primary-hi: var(--primary-highlight, #c22d3b);
+  --lp-secondary: var(--secondary-color, #3e6a94);
+  --lp-bg: var(--background-color, #2b2b2b);
+  --lp-panel: var(--light-gray-color, #444444);
+  --lp-dark: var(--dark-gray-color, #111111);
+  --lp-text-light: var(--light-text, #ffffff);
+  --lp-heat: #c95a00;
+  --lp-hp: #3b9b4b;
+  --lp-warn: #d6a400;
+  --lp-bad: #b33a3a;
+  --lp-font-head: var(--header-font-family, "Orbitron", "Helvetica Neue", Arial, sans-serif);
+  --lp-radius: 3px;
+}
+
+/* ===================================================== */
+/*  Sidebar                                              */
+/* ===================================================== */
+
+.lancer-parties {
+  margin: 0 0 4px;
+  padding: 0;
+}
+
+.lancer-parties > li.lp-party > header.lp-party-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: color-mix(in srgb, var(--lp-primary) 70%, black);
+  color: var(--lp-text-light);
+  border-left: 4px solid var(--lp-primary-hi);
+  cursor: pointer;
+}
+
+.lancer-parties > li.lp-party.lp-active > header.lp-party-header {
+  background: var(--lp-primary);
+}
+
+.lancer-parties .lp-party-name {
+  flex: 1;
+  font-family: var(--lp-font-head);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lancer-parties .lp-party-count {
+  min-width: 1.4em;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: rgb(0 0 0 / 0.35);
+  font-size: var(--font-size-11, 11px);
+  text-align: center;
+}
+
+.lancer-parties .lp-active-star {
+  color: gold;
+}
+
+.lancer-parties header button.inline-control {
+  --button-text-color: var(--lp-text-light);
+  color: var(--lp-text-light);
+  flex: 0 0 auto;
+}
+
+.lancer-parties > li.lp-party > ol.subdirectory {
+  border-left: 2px solid var(--lp-primary);
+  margin-left: 4px;
+}
+
+.lancer-parties > li.lp-party:not(.expanded) > ol.subdirectory {
+  display: none;
+}
+
+.lancer-parties .lp-entry-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.lancer-parties .lp-subtitle {
+  font-size: var(--font-size-11, 11px);
+  color: var(--color-text-subtle, #9a9a9a);
+}
+
+.lancer-parties .lp-mech {
+  padding-left: 14px;
+}
+
+.lancer-parties .lp-mech .thumbnail {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+}
+
+.lancer-parties .lp-mech-link {
+  align-self: center;
+  margin-right: 4px;
+  opacity: 0.6;
+}
+
+.lancer-parties .lp-empty {
+  padding: 6px 8px;
+  font-style: italic;
+  color: var(--color-text-subtle, #9a9a9a);
+}
+
+.lp-create-party {
+  white-space: nowrap;
+}
+
+/* ===================================================== */
+/*  Sheet                                                */
+/* ===================================================== */
+
+.lancer-party-sheet .window-content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lancer-party-sheet .lp-sheet-header {
+  display: flex;
+  gap: 10px;
+  padding: 8px 10px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lp-primary) 85%, black), var(--lp-dark));
+  color: var(--lp-text-light);
+  border-bottom: 3px solid var(--lp-primary-hi);
+}
+
+.lancer-party-sheet .lp-portrait {
+  width: 84px;
+  height: 84px;
+  flex: 0 0 84px;
+  object-fit: cover;
+  border: 2px solid var(--lp-primary-hi);
+  border-radius: var(--lp-radius);
+  background: var(--lp-dark);
+  cursor: pointer;
+}
+
+.lancer-party-sheet .lp-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lancer-party-sheet .lp-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lancer-party-sheet .lp-name {
+  flex: 1;
+  margin: 0;
+  font-family: var(--lp-font-head);
+  font-size: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--lp-text-light);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  height: auto;
+}
+
+.lancer-party-sheet input.lp-name:hover,
+.lancer-party-sheet input.lp-name:focus {
+  border-bottom-color: var(--lp-primary-hi);
+  box-shadow: none;
+}
+
+.lancer-party-sheet .lp-badge {
+  flex: 0 0 auto;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: var(--font-size-12, 12px);
+  background: rgb(0 0 0 / 0.35);
+  color: var(--lp-text-light);
+  border: 1px solid rgb(255 255 255 / 0.25);
+  width: auto;
+  line-height: 1.6;
+}
+
+.lancer-party-sheet .lp-badge-active i {
+  color: gold;
+}
+
+.lancer-party-sheet .lp-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: var(--font-size-12, 12px);
+  opacity: 0.95;
+}
+
+.lancer-party-sheet .lp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.lancer-party-sheet .lp-toolbar button {
+  flex: 0 0 auto;
+  width: auto;
+  height: 24px;
+  padding: 0 8px;
+  font-size: var(--font-size-12, 12px);
+  line-height: 22px;
+  background: rgb(0 0 0 / 0.35);
+  color: var(--lp-text-light);
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: var(--lp-radius);
+}
+
+.lancer-party-sheet .lp-toolbar button:hover {
+  background: var(--lp-primary);
+  border-color: var(--lp-primary-hi);
+}
+
+.lancer-party-sheet nav.tabs {
+  flex: 0 0 auto;
+  border-bottom: 1px solid var(--color-border, #555);
+}
+
+.lancer-party-sheet nav.tabs a.active {
+  text-shadow: none;
+  border-bottom: 2px solid var(--lp-primary);
+}
+
+.lancer-party-sheet .lp-tab {
+  padding: 8px 10px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.lancer-party-sheet .lp-tab:not(.active) {
+  display: none;
+}
+
+.lancer-party-sheet .lp-dim {
+  opacity: 0.7;
+  font-weight: normal;
+}
+
+.lancer-party-sheet .lp-warn {
+  color: var(--lp-warn);
+}
+
+.lancer-party-sheet .lp-hint,
+.lancer-party-dialog .hint {
+  font-size: var(--font-size-12, 12px);
+  opacity: 0.75;
+  font-style: italic;
+}
+
+.lancer-party-sheet .lp-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--lp-warn);
+  background: color-mix(in srgb, var(--lp-warn) 12%, transparent);
+}
+
+.lancer-party-sheet .lp-notice button {
+  width: auto;
+  margin-left: auto;
+}
+
+.lancer-party-sheet .lp-empty-state {
+  padding: 24px;
+  text-align: center;
+  opacity: 0.7;
+  list-style: none;
+}
+
+.lancer-party-sheet .lp-tag {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: var(--lp-radius);
+  background: color-mix(in srgb, var(--lp-secondary) 30%, transparent);
+  font-size: var(--font-size-11, 11px);
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.lancer-party-sheet .lp-callsign {
+  background: var(--lp-primary);
+  color: var(--lp-text-light);
+  font-family: var(--lp-font-head);
+  letter-spacing: 0.06em;
+}
+
+.lancer-party-sheet .lp-tag-core {
+  background: var(--lp-secondary);
+  color: var(--lp-text-light);
+}
+
+/* ---------- Squad ---------- */
+
+.lancer-party-sheet .lp-members {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 8px;
+}
+
+.lancer-party-sheet .lp-member {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border, #555);
+  border-top: 3px solid var(--lp-primary);
+  border-radius: var(--lp-radius);
+  background: rgb(0 0 0 / 0.06);
+  overflow: hidden;
+}
+
+.lancer-party-sheet .lp-member.lp-destroyed {
+  border-top-color: var(--lp-bad);
+  filter: saturate(0.6);
+}
+
+.lancer-party-sheet .lp-member[draggable="true"] {
+  cursor: grab;
+}
+
+.lancer-party-sheet .lp-pilot {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+}
+
+.lancer-party-sheet .lp-avatar {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  object-fit: cover;
+  border-radius: var(--lp-radius);
+  border: 1px solid var(--color-border, #555);
+  cursor: pointer;
+}
+
+.lancer-party-sheet .lp-pilot-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.lancer-party-sheet .lp-member-name {
+  margin: 0;
+  border: none;
+  font-family: var(--lp-font-head);
+  font-size: 1.05em;
+  text-transform: uppercase;
+}
+
+.lancer-party-sheet .lp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.lancer-party-sheet input.lp-role {
+  height: 20px;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lancer-party-sheet span.lp-role {
+  font-size: var(--font-size-12, 12px);
+  font-style: italic;
+}
+
+.lancer-party-sheet .lp-pilot-stats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lancer-party-sheet .lp-pilot-stats .lp-bar {
+  flex: 1;
+}
+
+.lancer-party-sheet .lp-member-controls a {
+  padding: 2px 4px;
+}
+
+.lancer-party-sheet .lp-mech {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-top: 1px dashed var(--color-border, #555);
+  background: rgb(0 0 0 / 0.08);
+}
+
+.lancer-party-sheet .lp-no-mech {
+  justify-content: center;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.lancer-party-sheet .lp-mech-img {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.lancer-party-sheet .lp-mech-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lancer-party-sheet .lp-mech-title {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.lancer-party-sheet .lp-bars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.lancer-party-sheet .lp-bar {
+  position: relative;
+  height: 16px;
+  border-radius: var(--lp-radius);
+  background: rgb(0 0 0 / 0.35);
+  overflow: hidden;
+}
+
+.lancer-party-sheet .lp-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--lp-hp);
+}
+
+.lancer-party-sheet .lp-bar-heat .lp-bar-fill {
+  background: var(--lp-heat);
+}
+
+.lancer-party-sheet .lp-bar-label {
+  position: relative;
+  display: block;
+  padding: 0 4px;
+  font-size: var(--font-size-11, 11px);
+  line-height: 16px;
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+}
+
+.lancer-party-sheet .lp-os {
+  color: #8fd3ff;
+}
+
+.lancer-party-sheet .lp-counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lancer-party-sheet .lp-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.lancer-party-sheet .lp-counter > i {
+  margin-right: 2px;
+  opacity: 0.8;
+}
+
+.lancer-party-sheet .lp-pip {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+  margin: 0 1px;
+  opacity: 0.6;
+}
+
+.lancer-party-sheet .lp-pip.filled {
+  background: var(--lp-primary);
+  border-color: var(--lp-primary-hi);
+  opacity: 1;
+}
+
+.lancer-party-sheet .lp-counter-stress .lp-pip.filled {
+  background: var(--lp-heat);
+  border-color: var(--lp-heat);
+}
+
+.lancer-party-sheet .lp-counter-repairs .lp-pip.filled {
+  background: var(--lp-secondary);
+  border-color: var(--lp-secondary);
+}
+
+.lancer-party-sheet .lp-counter-core.charged {
+  color: var(--lp-secondary);
+  font-weight: bold;
+}
+
+.lancer-party-sheet .lp-counter-burn {
+  color: var(--lp-heat);
+}
+
+.lancer-party-sheet .lp-stats {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin: 0;
+}
+
+.lancer-party-sheet .lp-stats > div {
+  text-align: center;
+  background: rgb(0 0 0 / 0.12);
+  border-radius: var(--lp-radius);
+  padding: 1px 0;
+}
+
+.lancer-party-sheet .lp-stats dt {
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+}
+
+.lancer-party-sheet .lp-stats dd {
+  margin: 0;
+  font-weight: bold;
+}
+
+.lancer-party-sheet .lp-statuses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.lancer-party-sheet .lp-status {
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.lancer-party-sheet .lp-limited-list {
+  list-style: none;
+  padding: 0;
+}
+
+.lancer-party-sheet .lp-limited-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.lancer-party-sheet .lp-limited-list img {
+  width: 36px;
+  height: 36px;
+  border: none;
+}
+
+/* ---------- Mission ---------- */
+
+.lancer-party-sheet fieldset {
+  border: 1px solid var(--color-border, #555);
+  border-radius: var(--lp-radius);
+  margin: 0 0 8px;
+}
+
+.lancer-party-sheet legend {
+  font-family: var(--lp-font-head);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 4px;
+}
+
+.lancer-party-sheet .lp-legend-action {
+  margin-left: 6px;
+  font-size: 0.9em;
+}
+
+.lancer-party-sheet .lp-row {
+  display: flex;
+  gap: 8px;
+}
+
+.lancer-party-sheet .lp-row .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 0 4px;
+}
+
+.lancer-party-sheet .lp-row .form-group label {
+  flex: none;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lancer-party-sheet .lp-narrow {
+  flex: 0 0 64px;
+}
+
+.lancer-party-sheet .lp-grow {
+  flex: 1;
+}
+
+.lancer-party-sheet .lp-briefing prose-mirror,
+.lancer-party-sheet .lp-tab-notes prose-mirror {
+  min-height: 120px;
+}
+
+.lancer-party-sheet .lp-tab-notes prose-mirror {
+  min-height: 100%;
+}
+
+.lancer-party-sheet .lp-columns {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(300px, 1.4fr);
+  gap: 8px;
+}
+
+.lancer-party-sheet .lp-objective-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lancer-party-sheet .lp-objective {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+}
+
+.lancer-party-sheet .lp-objective.done input,
+.lancer-party-sheet .lp-objective.done .lp-objective-text {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.lancer-party-sheet .lp-objective input {
+  flex: 1;
+  height: 22px;
+}
+
+.lancer-party-sheet .lp-objective-text {
+  flex: 1;
+}
+
+.lancer-party-sheet button.lp-check {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 1.1em;
+}
+
+.lancer-party-sheet .lp-gm-hidden {
+  opacity: 0.6;
+  border-left: 2px dotted var(--lp-warn);
+  padding-left: 4px;
+}
+
+.lancer-party-sheet .lp-add-row {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.lancer-party-sheet .lp-add-row input {
+  flex: 1;
+}
+
+.lancer-party-sheet .lp-add-row select {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.lancer-party-sheet .lp-add-row button {
+  flex: 0 0 30px;
+  width: 30px;
+}
+
+.lancer-party-sheet .lp-clock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.lancer-party-sheet .lp-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.lancer-party-sheet .lp-clock-face {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.lancer-party-sheet .lp-clock-face svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lancer-party-sheet .lp-clock-rim {
+  fill: rgb(0 0 0 / 0.25);
+  stroke: var(--lp-secondary);
+  stroke-width: 3;
+}
+
+.lancer-party-sheet .lp-seg {
+  fill: transparent;
+  stroke: rgb(255 255 255 / 0.55);
+  stroke-width: 1.5;
+}
+
+.lancer-party-sheet .lp-seg.filled {
+  fill: var(--lp-secondary);
+}
+
+.lancer-party-sheet .lp-clock-threat .lp-clock-rim {
+  stroke: var(--lp-primary);
+}
+
+.lancer-party-sheet .lp-clock-threat .lp-seg.filled {
+  fill: var(--lp-primary);
+}
+
+.lancer-party-sheet .lp-clock.full .lp-clock-face svg {
+  filter: drop-shadow(0 0 6px var(--lp-primary-hi));
+}
+
+.lancer-party-sheet .lp-clock-value {
+  position: absolute;
+  inset: auto 0 -2px 0;
+  font-size: var(--font-size-11, 11px);
+  font-weight: bold;
+  text-shadow: 0 0 3px #000;
+  color: #fff;
+}
+
+.lancer-party-sheet .lp-clock-name {
+  text-align: center;
+  height: 22px;
+  width: 100%;
+}
+
+.lancer-party-sheet .lp-clock-meta {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+}
+
+.lancer-party-sheet .lp-clock-meta select {
+  flex: 1;
+  min-width: 0;
+  height: 20px;
+  font-size: var(--font-size-11, 11px);
+  padding: 0 2px;
+}
+
+.lancer-party-sheet .lp-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lancer-party-sheet .lp-log-table th,
+.lancer-party-sheet .lp-log-table td {
+  padding: 2px 4px;
+  text-align: left;
+}
+
+.lancer-party-sheet .lp-log-table tr.outcome-failure td:nth-child(4) {
+  color: var(--lp-bad);
+}
+
+.lancer-party-sheet .lp-log-table tr.outcome-success td:nth-child(4) {
+  color: var(--lp-hp);
+}
+
+/* ---------- Reserves ---------- */
+
+.lancer-party-sheet .lp-manna {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.lancer-party-sheet .lp-manna label {
+  font-family: var(--lp-font-head);
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.lancer-party-sheet .lp-manna input {
+  width: 100px;
+  text-align: center;
+}
+
+.lancer-party-sheet .lp-manna button {
+  flex: 0 0 28px;
+  width: 28px;
+}
+
+.lancer-party-sheet .lp-reserve-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lancer-party-sheet .lp-reserve {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  border-bottom: 1px solid var(--color-border, #555);
+  padding: 4px 0;
+}
+
+.lancer-party-sheet .lp-reserve details {
+  flex: 1;
+  min-width: 0;
+}
+
+.lancer-party-sheet .lp-reserve summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.lancer-party-sheet .lp-reserve summary img {
+  width: 28px;
+  height: 28px;
+  border: none;
+}
+
+.lancer-party-sheet .lp-reserve-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.lancer-party-sheet .lp-qty {
+  font-weight: bold;
+}
+
+.lancer-party-sheet .lp-reserve-controls {
+  display: flex;
+  gap: 6px;
+  padding-top: 6px;
+}
+
+.lancer-party-sheet .lp-reserve .lp-prose {
+  padding: 4px 0 4px 34px;
+}
+
+.lancer-party-sheet .lp-reserve-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.lancer-party-sheet .lp-reserve-footer button {
+  width: auto;
+}
+
+/* ===================================================== */
+/*  Chat cards                                           */
+/* ===================================================== */
+
+.lancer-party-card {
+  border-left: 3px solid var(--lp-primary);
+  padding: 4px 6px;
+}
+
+.lancer-party-card h3 {
+  margin: 0 0 2px;
+  border: none;
+  font-family: var(--lp-font-head);
+  text-transform: uppercase;
+  font-size: 1.05em;
+}
+
+.lancer-party-card .hint {
+  font-size: var(--font-size-11, 11px);
+  opacity: 0.75;
+}
+
+.lp-group-check header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lp-group-check header > i {
+  font-size: 1.6em;
+  color: var(--lp-primary);
+}
+
+.lp-group-check .lp-check-what {
+  margin: 0;
+  font-size: var(--font-size-12, 12px);
+  opacity: 0.85;
+}
+
+.lp-group-check .lp-check-rows {
+  list-style: none;
+  margin: 4px 0;
+  padding: 0;
+}
+
+.lp-group-check .lp-check-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  border-bottom: 1px solid rgb(0 0 0 / 0.1);
+}
+
+.lp-group-check .lp-check-row img {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+}
+
+.lp-group-check .lp-check-name {
+  flex: 1;
+}
+
+.lp-group-check .lp-check-total {
+  min-width: 2em;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 4px;
+  border-radius: var(--lp-radius);
+}
+
+.lp-group-check .lp-check-row.success .lp-check-total {
+  background: var(--lp-hp);
+  color: #fff;
+}
+
+.lp-group-check .lp-check-row.failure .lp-check-total {
+  background: var(--lp-bad);
+  color: #fff;
+}
+
+.lp-group-check button.lp-check-roll {
+  flex: 0 0 auto;
+  width: auto;
+  height: 22px;
+  line-height: 20px;
+  padding: 0 6px;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lp-group-check button.lp-check-reroll {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  line-height: 20px;
+  font-size: 10px;
+}
+
+.lp-group-check footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lp-group-check.outcome-success .lp-check-outcome {
+  color: var(--lp-hp);
+}
+
+.lp-group-check.outcome-failure .lp-check-outcome {
+  color: var(--lp-bad);
+}
+
+.lp-roster header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lp-roster header img {
+  border: none;
+}
+
+.lp-roster ul {
+  margin: 4px 0;
+  padding-left: 16px;
+}
+
+.lp-roster .lp-roster-mech {
+  font-size: var(--font-size-12, 12px);
+  opacity: 0.85;
+}
+
+.mission-end .outcome {
+  font-weight: bold;
+}
+
+.mission-end.outcome-success .outcome {
+  color: var(--lp-hp);
+}
+
+.mission-end.outcome-failure .outcome {
+  color: var(--lp-bad);
+}
+
+/* ===================================================== */
+/*  Dialogs                                              */
+/* ===================================================== */
+
+.lancer-party-dialog fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lancer-party-dialog .lp-check-member {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lancer-party-dialog .lp-check-member img {
+  border: none;
+}

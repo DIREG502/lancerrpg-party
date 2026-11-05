@@ -1,0 +1,144 @@
+<section class="tab lp-tab lp-tab-squad {{tab.cssClass}}" data-tab="squad" data-group="primary">
+  {{#if limited}}
+  <ul class="lp-limited-list">
+    {{#each members as |m|}}{{#unless m.missing}}
+    <li><img src="{{m.img}}" alt=""> <span>{{m.name}}</span>{{#if m.callsign}} <span class="lp-dim">“{{m.callsign}}”</span>{{/if}}</li>
+    {{/unless}}{{/each}}
+  </ul>
+  {{else}}
+
+  {{#if hasMissing}}
+  <div class="lp-notice">
+    <i class="fa-solid fa-triangle-exclamation"></i> {{localize "LANCERPARTY.Member.MissingNotice"}}
+    {{#if manage}}<button type="button" data-action="pruneMissing">{{localize "LANCERPARTY.Member.Prune"}}</button>{{/if}}
+  </div>
+  {{/if}}
+
+  <div class="lp-members">
+    {{#each members as |m|}}
+    {{#unless m.missing}}
+    <article class="lp-member{{#if m.mech.destroyed}} lp-destroyed{{/if}}" data-member-uuid="{{m.uuid}}" data-drag-uuid="{{m.uuid}}">
+      <div class="lp-pilot">
+        <img class="lp-avatar" src="{{m.img}}" alt="{{m.name}}" {{#if m.canOpen}}data-action="openMember" data-uuid="{{m.uuid}}"{{/if}}>
+        <div class="lp-pilot-info">
+          <h3 class="lp-member-name">
+            {{#if m.canOpen}}<a data-action="openMember" data-uuid="{{m.uuid}}">{{m.name}}</a>{{else}}{{m.name}}{{/if}}
+          </h3>
+          <div class="lp-tags">
+            {{#if m.callsign}}<span class="lp-tag lp-callsign">{{m.callsign}}</span>{{/if}}
+            {{#if m.isPilot}}<span class="lp-tag">{{localize "LANCERPARTY.Member.LL" level=m.level}}</span>{{/if}}
+            {{#unless m.isPilot}}<span class="lp-tag lp-tag-type">{{m.typeLabel}}</span>{{/unless}}
+            {{#if m.tier}}<span class="lp-tag">{{localize "LANCERPARTY.Member.NpcTier" tier=m.tier}}</span>{{/if}}
+            {{#if m.playerName}}<span class="lp-tag lp-dim"><i class="fa-solid fa-user"></i> {{m.playerName}}</span>{{/if}}
+          </div>
+          {{#if m.canEditRole}}
+          <input type="text" class="lp-role" value="{{m.role}}" data-lp-change="role" data-uuid="{{m.uuid}}" data-lp-contrib
+                 placeholder="{{localize "LANCERPARTY.Member.RolePlaceholder"}}" aria-label="{{localize "LANCERPARTY.Member.Role"}}">
+          {{else if m.role}}
+          <span class="lp-role">{{m.role}}</span>
+          {{/if}}
+          {{#if (and m.isPilot (not m.restricted))}}
+          <div class="lp-pilot-stats">
+            {{#if m.hp}}
+            <div class="lp-bar lp-bar-hp" data-tooltip="LANCERPARTY.Stat.PilotHP">
+              <span class="lp-bar-fill" style="width: {{m.hp.pct}}%"></span>
+              <span class="lp-bar-label">{{localize "LANCERPARTY.Stat.HP"}} {{m.hp.value}}/{{m.hp.max}}</span>
+            </div>
+            {{/if}}
+            <span class="lp-stat" data-tooltip="LANCERPARTY.Stat.Grit">{{localize "LANCERPARTY.Stat.GritShort"}} <strong>+{{m.grit}}</strong></span>
+            {{#each m.statuses as |s|}}<img class="lp-status" src="{{s.img}}" alt="{{s.label}}" data-tooltip="{{s.label}}">{{/each}}
+          </div>
+          {{/if}}
+        </div>
+        {{#if @root.manage}}
+        <div class="lp-member-controls">
+          <a data-action="removeMember" data-tooltip="LANCERPARTY.Member.Remove" aria-label="{{localize "LANCERPARTY.Member.Remove"}}"><i class="fa-solid fa-user-minus"></i></a>
+        </div>
+        {{/if}}
+      </div>
+
+      {{#if m.mech}}
+      <div class="lp-mech" data-drag-uuid="{{m.mech.uuid}}">
+        <img class="lp-mech-img" src="{{m.mech.img}}" alt="{{m.mech.name}}"
+             {{#if (or m.canOpenMech (and (not m.isPilot) m.canOpen))}}data-action="openMember" data-uuid="{{m.mech.uuid}}"{{/if}}>
+        <div class="lp-mech-body">
+          <div class="lp-mech-title">
+            {{#if (or m.canOpenMech (and (not m.isPilot) m.canOpen))}}
+            <a data-action="openMember" data-uuid="{{m.mech.uuid}}">{{m.mech.name}}</a>
+            {{else}}{{m.mech.name}}{{/if}}
+            {{#if m.mech.frame}}<span class="lp-dim">{{m.mech.frame}}</span>{{/if}}
+            {{#if (and m.isPilot (not m.mechLinked))}}<i class="fa-solid fa-link-slash lp-warn" data-tooltip="LANCERPARTY.Member.LinkBroken"></i>{{/if}}
+            {{#if m.mech.coreActive}}<span class="lp-tag lp-tag-core">{{localize "LANCERPARTY.Stat.CoreActive"}}</span>{{/if}}
+          </div>
+          {{#unless m.restricted}}
+          <div class="lp-bars">
+            {{#if m.mech.hp}}
+            <div class="lp-bar lp-bar-hp" data-tooltip="LANCERPARTY.Stat.HP">
+              <span class="lp-bar-fill" style="width: {{m.mech.hp.pct}}%"></span>
+              <span class="lp-bar-label">{{localize "LANCERPARTY.Stat.HP"}} {{m.mech.hp.value}}/{{m.mech.hp.max}}{{#if m.mech.overshield}} <span class="lp-os">+{{m.mech.overshield}}</span>{{/if}}</span>
+            </div>
+            {{/if}}
+            {{#if m.mech.heat}}
+            <div class="lp-bar lp-bar-heat" data-tooltip="LANCERPARTY.Stat.Heat">
+              <span class="lp-bar-fill" style="width: {{m.mech.heat.pct}}%"></span>
+              <span class="lp-bar-label">{{localize "LANCERPARTY.Stat.Heat"}} {{m.mech.heat.value}}/{{m.mech.heat.max}}</span>
+            </div>
+            {{/if}}
+          </div>
+          <div class="lp-counters">
+            {{#if m.mech.structure}}
+            <span class="lp-counter" data-tooltip="LANCERPARTY.Stat.Structure">
+              <i class="fa-solid fa-shield-halved"></i>
+              {{#if m.mech.structurePips}}{{#each m.mech.structurePips as |p|}}<span class="lp-pip{{#if p.filled}} filled{{/if}}"></span>{{/each}}
+              {{else}}{{m.mech.structure.value}}/{{m.mech.structure.max}}{{/if}}
+            </span>
+            {{/if}}
+            {{#if m.mech.stress}}
+            <span class="lp-counter lp-counter-stress" data-tooltip="LANCERPARTY.Stat.Stress">
+              <i class="fa-solid fa-radiation"></i>
+              {{#if m.mech.stressPips}}{{#each m.mech.stressPips as |p|}}<span class="lp-pip{{#if p.filled}} filled{{/if}}"></span>{{/each}}
+              {{else}}{{m.mech.stress.value}}/{{m.mech.stress.max}}{{/if}}
+            </span>
+            {{/if}}
+            {{#if m.mech.repairs}}
+            <span class="lp-counter lp-counter-repairs" data-tooltip="LANCERPARTY.Stat.Repairs">
+              <i class="fa-solid fa-wrench"></i>
+              {{#if m.mech.repairPips}}{{#each m.mech.repairPips as |p|}}<span class="lp-pip{{#if p.filled}} filled{{/if}}"></span>{{/each}}
+              {{else}}{{m.mech.repairs.value}}/{{m.mech.repairs.max}}{{/if}}
+            </span>
+            {{/if}}
+            {{#if (ne m.mech.coreEnergy null)}}
+            <span class="lp-counter lp-counter-core{{#if m.mech.coreEnergy}} charged{{/if}}" data-tooltip="LANCERPARTY.Stat.CorePower">
+              <i class="fa-solid fa-atom"></i> {{#if m.mech.coreEnergy}}{{localize "LANCERPARTY.Stat.CoreReady"}}{{else}}{{localize "LANCERPARTY.Stat.CoreSpent"}}{{/if}}
+            </span>
+            {{/if}}
+            {{#if m.mech.burn}}<span class="lp-counter lp-counter-burn" data-tooltip="LANCERPARTY.Stat.Burn"><i class="fa-solid fa-fire"></i> {{m.mech.burn}}</span>{{/if}}
+            {{#if m.mech.overcharge}}<span class="lp-counter" data-tooltip="LANCERPARTY.Stat.Overcharge"><i class="fa-solid fa-bolt"></i> {{m.mech.overcharge}}</span>{{/if}}
+          </div>
+          <dl class="lp-stats">
+            <div><dt>{{localize "LANCERPARTY.Stat.EvasionShort"}}</dt><dd>{{m.mech.stats.evasion}}</dd></div>
+            <div><dt>{{localize "LANCERPARTY.Stat.EDefShort"}}</dt><dd>{{m.mech.stats.edef}}</dd></div>
+            <div><dt>{{localize "LANCERPARTY.Stat.ArmorShort"}}</dt><dd>{{m.mech.stats.armor}}</dd></div>
+            <div><dt>{{localize "LANCERPARTY.Stat.SpeedShort"}}</dt><dd>{{m.mech.stats.speed}}</dd></div>
+            <div><dt>{{localize "LANCERPARTY.Stat.SensorsShort"}}</dt><dd>{{m.mech.stats.sensors}}</dd></div>
+            <div><dt>{{localize "LANCERPARTY.Stat.SaveShort"}}</dt><dd>{{m.mech.stats.save}}</dd></div>
+            <div><dt>{{localize "LANCERPARTY.Stat.TechShort"}}</dt><dd>{{m.mech.stats.techAttack}}</dd></div>
+          </dl>
+          {{#if m.mech.statuses.length}}
+          <div class="lp-statuses">{{#each m.mech.statuses as |s|}}<img class="lp-status" src="{{s.img}}" alt="{{s.label}}" data-tooltip="{{s.label}}">{{/each}}</div>
+          {{/if}}
+          {{/unless}}
+        </div>
+      </div>
+      {{else if m.isPilot}}
+      <div class="lp-mech lp-no-mech"><i class="fa-solid fa-person"></i> {{localize "LANCERPARTY.Member.NoMech"}}</div>
+      {{/if}}
+    </article>
+    {{/unless}}
+    {{else}}
+    <p class="lp-empty-state"><i class="fa-solid fa-users-slash"></i> {{localize "LANCERPARTY.Member.None"}}</p>
+    {{/each}}
+  </div>
+  {{#if manage}}<p class="lp-hint"><i class="fa-solid fa-hand-pointer"></i> {{localize "LANCERPARTY.Member.DropHint"}}</p>{{/if}}
+  {{/if}}
+</section>

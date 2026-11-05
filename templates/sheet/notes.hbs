@@ -1,0 +1,7 @@
+<section class="tab lp-tab lp-tab-notes {{tab.cssClass}}" data-tab="notes" data-group="primary">
+  {{#if editable}}
+  {{formInput systemFields.description name="system.description" value=sourceSystem.description enriched=enrichedDescription toggled=true}}
+  {{else}}
+  <div class="lp-prose">{{{enrichedDescription}}}</div>
+  {{/if}}
+</section>

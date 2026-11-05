@@ -1,0 +1,15 @@
+{
+  "name": "lancer-party",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Development metadata for tests and checks only. Not needed by Foundry VTT.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/",
+    "check": "node tests/tools/check-package.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.10"
+  }
+}

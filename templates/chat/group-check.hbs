@@ -1,0 +1,27 @@
+<div class="lancer-party-card lp-group-check{{#if summary.outcome}} outcome-{{summary.outcome}}{{/if}}">
+  <header>
+    <i class="fa-solid fa-dice-d20"></i>
+    <div>
+      <h3>{{#if flag.title}}{{flag.title}}{{else}}{{localize "LANCERPARTY.Check.CardTitle"}}{{/if}}</h3>
+      <p class="lp-check-what">{{flag.check.label}} · {{modeLabel}} · {{localize "LANCERPARTY.Check.Target" target=flag.target}}</p>
+    </div>
+  </header>
+  <ol class="lp-check-rows">
+    {{#each rows as |r|}}
+    <li class="lp-check-row{{#if r.rolled}} rolled {{#if r.success}}success{{else}}failure{{/if}}{{/if}}" data-uuid="{{r.uuid}}">
+      <img src="{{r.img}}" alt="">
+      <span class="lp-check-name">{{r.name}}</span>
+      {{#if r.rolled}}
+      <span class="lp-check-total">{{r.total}}</span>
+      <button type="button" class="lp-check-reroll" data-lp-reroll title="{{localize "LANCERPARTY.Check.Reroll"}}"><i class="fa-solid fa-rotate"></i></button>
+      {{else}}
+      <button type="button" class="lp-check-roll" data-lp-roll><i class="fa-solid fa-dice-d20"></i> {{localize "LANCERPARTY.Check.Roll"}}</button>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
+  <footer>
+    <span>{{localize "LANCERPARTY.Check.Tally" successes=summary.successes failures=summary.failures pending=summary.pending}}</span>
+    {{#if outcomeLabel}}<strong class="lp-check-outcome">{{outcomeLabel}}</strong>{{/if}}
+  </footer>
+</div>

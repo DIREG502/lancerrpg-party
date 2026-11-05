@@ -1,0 +1,48 @@
+<ol class="plain lancer-parties">
+  {{#each lancerParties as |party|}}
+  <li class="directory-item folder flexcol lp-party{{#if party.expanded}} expanded{{/if}}{{#if party.active}} lp-active{{/if}}"
+      data-lp-party data-entry-id="{{party.id}}" data-uuid="{{party.uuid}}">
+    <header class="folder-header lp-party-header" data-action="lpToggleParty">
+      <i class="lp-party-icon fa-solid fa-people-group fa-fw" inert></i>
+      <img src="{{party.img}}" alt="" hidden>
+      <span class="folder-name lp-party-name ellipsis">{{party.name}}</span>
+      <span class="lp-party-count" data-tooltip="LANCERPARTY.Sidebar.MemberCount">{{party.count}}</span>
+      {{#if party.active}}
+      <i class="fa-solid fa-star lp-active-star" data-tooltip="LANCERPARTY.Sidebar.Active" aria-label="{{localize "LANCERPARTY.Sidebar.Active"}}"></i>
+      {{else if @root.lancerPartyIsGM}}
+      <button type="button" class="inline-control icon fa-regular fa-star" data-action="lpActivateParty"
+              data-tooltip="LANCERPARTY.Sidebar.SetActive" aria-label="{{localize "LANCERPARTY.Sidebar.SetActive"}}"></button>
+      {{/if}}
+      <button type="button" class="inline-control icon fa-solid fa-id-card" data-action="lpOpenParty"
+              data-tooltip="LANCERPARTY.Sidebar.OpenSheet" aria-label="{{localize "LANCERPARTY.Sidebar.OpenSheet"}}"></button>
+      {{#if party.canCreateMember}}
+      <button type="button" class="inline-control icon fa-solid fa-user-plus" data-action="lpCreateMember"
+              data-tooltip="LANCERPARTY.Sidebar.CreateMember" aria-label="{{localize "LANCERPARTY.Sidebar.CreateMember"}}"></button>
+      {{/if}}
+    </header>
+    <ol class="subdirectory plain">
+      {{#each party.members as |member|}}
+      <li class="directory-item entry document actor flexrow lp-member" data-entry-id="{{member.id}}" data-lp-member>
+        <img class="thumbnail" src="{{member.img}}" alt="{{member.name}}" loading="lazy">
+        <a class="entry-name lp-entry-name" data-action="activateEntry">
+          <span class="lp-name ellipsis">{{member.name}}</span>
+          {{#if member.subtitle}}<span class="lp-subtitle ellipsis">{{member.subtitle}}</span>{{/if}}
+        </a>
+      </li>
+      {{#if member.mech}}
+      <li class="directory-item entry document actor flexrow lp-mech" data-entry-id="{{member.mech.id}}">
+        <i class="fa-solid fa-turn-up fa-rotate-90 lp-mech-link" inert></i>
+        <img class="thumbnail" src="{{member.mech.img}}" alt="{{member.mech.name}}" loading="lazy">
+        <a class="entry-name lp-entry-name" data-action="activateEntry">
+          <span class="lp-name ellipsis">{{member.mech.name}}</span>
+          {{#if member.mech.frame}}<span class="lp-subtitle ellipsis">{{member.mech.frame}}</span>{{/if}}
+        </a>
+      </li>
+      {{/if}}
+      {{else}}
+      <li class="lp-empty">{{localize "LANCERPARTY.Sidebar.Empty"}}</li>
+      {{/each}}
+    </ol>
+  </li>
+  {{/each}}
+</ol>

@@ -1,0 +1,320 @@
+{
+  "TYPES": {
+    "Actor": {
+      "lancer-party": {
+        "party": "Party"
+      }
+    }
+  },
+  "LANCERPARTY": {
+    "TypeLabel": "Party",
+    "SheetLabel": "Lancer Party Sheet",
+    "DefaultName": "Squad",
+    "Tab": {
+      "squad": "Squad",
+      "mission": "Mission",
+      "reserves": "Reserves",
+      "notes": "Notes"
+    },
+    "Sheet": {
+      "EditImage": "Change image",
+      "NamePlaceholder": "Squad name",
+      "Toolbar": "Party actions"
+    },
+    "Summary": {
+      "Members": "Members",
+      "AverageLL": "Average LL",
+      "Structure": "Structure",
+      "Repairs": "Repairs",
+      "Destroyed": "Destroyed"
+    },
+    "Action": {
+      "GroupCheck": "Group check",
+      "Deploy": "Deploy",
+      "DeployHint": "Place tokens for the squad on the current scene",
+      "Recall": "Recall",
+      "RecallHint": "Remove the squad's tokens from the current scene",
+      "Combat": "Add to combat",
+      "CombatHint": "Add the squad's tokens on this scene to the encounter",
+      "FullRepair": "Full Repair",
+      "FullRepairHint": "Run Lancer's Full Repair for every member (pilots and their mechs)",
+      "License": "+1 License Level",
+      "LicenseHint": "Raise every member pilot's License Level by one",
+      "EndMission": "End mission",
+      "Roster": "Post roster",
+      "RosterHint": "Post the squad and mech status to chat"
+    },
+    "Member": {
+      "LL": "LL {level}",
+      "Mech": "Mech",
+      "Npc": "NPC ally",
+      "NpcTier": "Tier {tier}",
+      "Role": "Role",
+      "RolePlaceholder": "Squad role (Striker, Support…)",
+      "Remove": "Remove from party",
+      "RemoveTitle": "Remove member",
+      "RemoveBody": "Remove <strong>{name}</strong> from {party}? The actor itself is not deleted.",
+      "NoMech": "No active mech",
+      "LinkBroken": "This mech's pilot field doesn't point back to this pilot. Lancer won't pass the pilot's bonuses to it until the link is fixed on the mech sheet.",
+      "None": "No members yet.",
+      "DropHint": "Drag pilots, mechs or NPC allies here. A mech with a pilot adds its pilot. Drag a member onto another to reorder.",
+      "MissingNotice": "Some members no longer exist (their actors were deleted).",
+      "Prune": "Clean up"
+    },
+    "Stat": {
+      "HP": "HP",
+      "PilotHP": "Pilot HP",
+      "Heat": "Heat",
+      "Structure": "Structure",
+      "StructureShort": "STR",
+      "Stress": "Reactor stress",
+      "StressShort": "STRESS",
+      "Repairs": "Repair capacity",
+      "CorePower": "Core power",
+      "CoreReady": "Core ready",
+      "CoreSpent": "Core spent",
+      "CoreActive": "Core active",
+      "Burn": "Burn",
+      "Overcharge": "Overcharge stage",
+      "Grit": "Grit",
+      "GritShort": "GRIT",
+      "EvasionShort": "EVA",
+      "EDefShort": "E-DEF",
+      "ArmorShort": "ARM",
+      "SpeedShort": "SPD",
+      "SensorsShort": "SENS",
+      "SaveShort": "SAVE",
+      "TechShort": "TECH"
+    },
+    "HASE": {
+      "hull": "Hull",
+      "agi": "Agility",
+      "sys": "Systems",
+      "eng": "Engineering"
+    },
+    "Mission": {
+      "Label": "Mission",
+      "Current": "Current mission",
+      "Name": "Mission",
+      "Untitled": "Untitled mission",
+      "Sitrep": "SITREP",
+      "SitrepHint": "Mission type, e.g. Control, Escort, Extraction, Holdout, Recon",
+      "Status": "Status",
+      "Briefing": "Briefing"
+    },
+    "MissionStatus": {
+      "planning": "Planning",
+      "active": "In progress",
+      "complete": "Complete",
+      "failed": "Failed"
+    },
+    "Outcome": {
+      "success": "Success",
+      "partial": "Partial success",
+      "failure": "Failure"
+    },
+    "Objective": {
+      "Title": "Objectives",
+      "None": "No objectives.",
+      "New": "New objective…",
+      "Add": "Add objective",
+      "Toggle": "Mark complete",
+      "Text": "Objective"
+    },
+    "Clock": {
+      "Title": "Clocks",
+      "None": "No clocks.",
+      "NewName": "New clock",
+      "Add": "Add clock",
+      "Name": "Clock name",
+      "Segments": "Segments",
+      "KindLabel": "Clock type",
+      "Kind": {
+        "progress": "Progress",
+        "threat": "Threat"
+      },
+      "TickHint": "Click: +1 · Right-click or Shift-click: −1",
+      "ResetAll": "Reset all clocks",
+      "DeleteTitle": "Delete clock",
+      "DeleteBody": "Delete this clock?"
+    },
+    "Log": {
+      "Title": "Mission log",
+      "None": "No completed missions yet.",
+      "Outcome": "Outcome",
+      "Date": "Date"
+    },
+    "Reserves": {
+      "Manna": "Manna",
+      "MannaStep": "±10 (Shift: ±100)",
+      "None": "No shared reserves. Drop Lancer items here (reserves, gear…) to pool them.",
+      "DropHint": "Drop items here. Items dragged from a sheet you own are moved; items from the sidebar or compendiums are copied.",
+      "Custom": "Custom",
+      "AddCustom": "Add custom reserve",
+      "Add": "Add",
+      "Name": "Name",
+      "Description": "Description",
+      "Post": "Post to chat",
+      "Give": "Give to pilot",
+      "GiveTitle": "Give reserve",
+      "GiveTo": "Give to",
+      "Given": "Reserve given to {name}.",
+      "NoTargets": "You don't own any pilot in this party.",
+      "More": "Add one",
+      "Less": "Remove one",
+      "DeleteTitle": "Delete reserve",
+      "DeleteBody": "Delete this reserve from the party stash?"
+    },
+    "Common": {
+      "Delete": "Delete",
+      "ToggleHidden": "Hidden from players / visible"
+    },
+    "Check": {
+      "RequestTitle": "Request a group check",
+      "Request": "Request",
+      "CardTitle": "Group check",
+      "What": "Check",
+      "GroupHase": "Mech skills (rolled by the mech, or the pilot if unmounted)",
+      "GroupSkills": "Skill triggers (members with it / pilots)",
+      "GroupOther": "Other",
+      "Grit": "Grit",
+      "Flat": "Plain check (d20)",
+      "SkillHint": "Pilots without the chosen trigger roll a plain d20, as in the core rules. Each player gets Lancer's accuracy/difficulty dialog.",
+      "ModeLabel": "Squad result",
+      "Mode": {
+        "each": "Individual results",
+        "all": "Everyone must succeed",
+        "any": "One success is enough",
+        "majority": "Majority must succeed"
+      },
+      "TitleLabel": "Title",
+      "TitlePlaceholder": "Optional, e.g. “Cross the minefield”",
+      "Who": "Who rolls",
+      "Target": "target {target}",
+      "Roll": "Roll",
+      "Reroll": "Roll again (GM)",
+      "Tally": "{successes} succeeded · {failures} failed · {pending} pending",
+      "Outcome": {
+        "success": "Squad succeeds",
+        "failure": "Squad fails"
+      }
+    },
+    "FullRepair": {
+      "Title": "Full Repair: squad",
+      "Body": "Run Lancer's Full Repair for:",
+      "Warning": "This is Lancer's own Full Repair: HP, heat, structure, stress, repairs and core power are restored, statuses are cleared and unequipped items are removed from the actor."
+    },
+    "License": {
+      "Title": "Award License Level",
+      "Body": "Raise the License Level of every pilot in the party by 1 (maximum 12)? Players then pick their new license, talent or skill on their pilot sheet.",
+      "ChatTitle": "License Level up",
+      "Cap": "Maximum License Level is {max}.",
+      "NoneChanged": "No pilot's License Level changed."
+    },
+    "EndMission": {
+      "Title": "End mission",
+      "Confirm": "End mission",
+      "Notes": "Notes for the log",
+      "Steps": "Then",
+      "Log": "Add the mission to the log",
+      "Repair": "Full Repair for the squad",
+      "License": "+1 License Level for every pilot",
+      "ResetClocks": "Reset all clocks to zero",
+      "ClearObjectives": "Clear objectives",
+      "Advance": "Start the next mission (number +1, clear name, SITREP and briefing)",
+      "Chat": "Post a summary to chat",
+      "ChatTitle": "Mission {number} complete: {name}",
+      "ChatRepaired": "The squad performed a Full Repair.",
+      "ChatLicense": "Every pilot gained a License Level."
+    },
+    "Deploy": {
+      "Title": "Deploy squad",
+      "Body": "Place tokens for members who aren't on this scene yet, around the party token or the centre of the view.",
+      "Mode": "Deploy",
+      "ModeAuto": "Mechs, or pilots without a mech",
+      "ModeMech": "Mechs only",
+      "ModePilot": "Pilots only",
+      "ReplacePartyToken": "Remove the party token afterwards",
+      "NoPartyToken": "Tip: put the party token on the map to choose where the squad deploys.",
+      "Confirm": "Deploy",
+      "NothingToDeploy": "Everyone is already on this scene.",
+      "NoRoom": "Some tokens didn't fit on the scene."
+    },
+    "Recall": {
+      "Title": "Recall squad",
+      "Body": "Remove {count} squad token(s) from this scene?",
+      "PlaceParty": "Put the party token where the squad was",
+      "Confirm": "Recall",
+      "Nothing": "No squad tokens on this scene."
+    },
+    "Combat": {
+      "NoTokens": "No squad tokens on this scene that aren't already in combat.",
+      "NoEncounter": "There is no encounter for this scene. Ask the GM to create one."
+    },
+    "Sidebar": {
+      "CreateParty": "Party",
+      "CreateMember": "Create a member",
+      "OpenSheet": "Open party sheet",
+      "SetActive": "Make active party",
+      "Active": "Active party",
+      "MemberCount": "Members",
+      "Empty": "Drop pilots here",
+      "RemoveMember": "Remove from party",
+      "AddToActive": "Add to active party"
+    },
+    "Notify": {
+      "MechRedirected": "{mech} is piloted by {pilot}; {pilot} joins the party and the mech is shown under them.",
+      "NotAdded": "{count} actor(s) can't join a party (only world pilots, mechs and NPCs can)."
+    },
+    "Settings": {
+      "HideMembers": {
+        "Name": "Hide party members elsewhere in the Actors tab",
+        "Hint": "Members (and, if shown, their mechs) appear only inside their party at the top of the Actors tab, like PF2e. Turn off to keep them in their folders as well."
+      },
+      "ShowMechs": {
+        "Name": "Show pilots' mechs in the sidebar",
+        "Hint": "List each pilot's active mech under the pilot in the party entry."
+      },
+      "StatsVisibility": {
+        "Name": "Who sees squad stats",
+        "Hint": "Whether players see HP, heat, structure and other stats of squadmates they don't have Observer permission for.",
+        "All": "Everyone (squadmates share telemetry)",
+        "Observer": "Only users with Observer permission on that actor"
+      },
+      "MemberEditing": {
+        "Name": "Players can update party tracking",
+        "Hint": "Players who own a member can tick clocks, check objectives and manage shared reserves and manna. Their changes are applied by the GM's client, so a GM must be connected."
+      },
+      "DefaultOwnership": {
+        "Name": "Default player access to new parties",
+        "Hint": "Ownership level given to all players when a party is created.",
+        "None": "None",
+        "Limited": "Limited (names only)",
+        "Observer": "Observer (full sheet, read-only)"
+      },
+      "AutoCreate": {
+        "Name": "Create a party in new worlds",
+        "Hint": "When the world has no party yet, the GM's client creates one on load and makes it active."
+      }
+    },
+    "Error": {
+      "Generic": "Something went wrong. See the console (F12) for details.",
+      "NoGM": "A GM must be connected to apply this change.",
+      "NotOwner": "You don't have permission to change this party.",
+      "GMOnly": "Only the GM can do this.",
+      "NoScene": "There is no active scene.",
+      "NoMembers": "The party has no members.",
+      "MemberMissing": "That party member no longer exists.",
+      "CannotRollFor": "You don't own {name}.",
+      "ResultNotSaved": "The roll result couldn't be added to the card.",
+      "NothingToRepair": "There's nothing you can repair in this party.",
+      "RepairFailed": "Full Repair failed for {name}.",
+      "OldLancer": "Lancer Party needs Lancer {min} or newer (installed: {version}). Some features may not work.",
+      "Op": {
+        "denied": "You don't have permission to do that.",
+        "invalid": "That change isn't valid.",
+        "notFound": "That entry no longer exists."
+      }
+    }
+  }
+}

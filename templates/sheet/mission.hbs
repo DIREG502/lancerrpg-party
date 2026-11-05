@@ -1,0 +1,134 @@
+<section class="tab lp-tab lp-tab-mission {{tab.cssClass}}" data-tab="mission" data-group="primary">
+  <fieldset class="lp-mission-details">
+    <legend>{{localize "LANCERPARTY.Mission.Current"}}</legend>
+    <div class="lp-row">
+      <div class="form-group lp-narrow">
+        <label for="{{rootId}}-mnum">#</label>
+        <input id="{{rootId}}-mnum" type="number" name="system.mission.number" value="{{system.mission.number}}" min="0" step="1" {{disabled (not editable)}}>
+      </div>
+      <div class="form-group lp-grow">
+        <label for="{{rootId}}-mname">{{localize "LANCERPARTY.Mission.Name"}}</label>
+        <input id="{{rootId}}-mname" type="text" name="system.mission.name" value="{{system.mission.name}}" placeholder="{{localize "LANCERPARTY.Mission.Untitled"}}" {{disabled (not editable)}}>
+      </div>
+    </div>
+    <div class="lp-row">
+      <div class="form-group lp-grow">
+        <label for="{{rootId}}-msitrep" data-tooltip="LANCERPARTY.Mission.SitrepHint">{{localize "LANCERPARTY.Mission.Sitrep"}}</label>
+        <input id="{{rootId}}-msitrep" type="text" name="system.mission.sitrep" value="{{system.mission.sitrep}}" {{disabled (not editable)}}>
+      </div>
+      <div class="form-group">
+        <label for="{{rootId}}-mstatus">{{localize "LANCERPARTY.Mission.Status"}}</label>
+        <select id="{{rootId}}-mstatus" name="system.mission.status" {{disabled (not editable)}}>
+          {{selectOptions statuses selected=system.mission.status valueAttr="value" labelAttr="label"}}
+        </select>
+      </div>
+    </div>
+    <div class="lp-briefing">
+      <label>{{localize "LANCERPARTY.Mission.Briefing"}}</label>
+      {{#if editable}}
+      {{formInput systemFields.mission.fields.briefing name="system.mission.briefing" value=sourceSystem.mission.briefing enriched=enrichedBriefing toggled=true}}
+      {{else}}
+      <div class="lp-prose">{{{enrichedBriefing}}}</div>
+      {{/if}}
+    </div>
+  </fieldset>
+
+  <div class="lp-columns">
+    <fieldset class="lp-objectives">
+      <legend>{{localize "LANCERPARTY.Objective.Title"}} <span class="lp-dim">{{objectivesDone}}/{{objectives.length}}</span></legend>
+      <ul class="lp-objective-list">
+        {{#each objectives as |o|}}
+        <li class="lp-objective{{#if o.done}} done{{/if}}{{#if o.hidden}} lp-gm-hidden{{/if}}" data-objective-id="{{o.id}}">
+          <button type="button" class="lp-check" data-action="objectiveToggle" data-lp-contrib
+                  aria-pressed="{{#if o.done}}true{{else}}false{{/if}}" aria-label="{{localize "LANCERPARTY.Objective.Toggle"}}">
+            <i class="fa-{{#if o.done}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i>
+          </button>
+          {{#if @root.manage}}
+          <input type="text" value="{{o.text}}" data-lp-change="objectiveText" data-id="{{o.id}}" aria-label="{{localize "LANCERPARTY.Objective.Text"}}">
+          <a data-action="objectiveHide" data-tooltip="LANCERPARTY.Common.ToggleHidden"><i class="fa-solid {{#if o.hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></a>
+          <a data-action="objectiveDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
+          {{else}}
+          <span class="lp-objective-text">{{o.text}}</span>
+          {{/if}}
+        </li>
+        {{else}}
+        <li class="lp-dim">{{localize "LANCERPARTY.Objective.None"}}</li>
+        {{/each}}
+      </ul>
+      {{#if contribute}}
+      <div class="lp-add-row" data-lp-new-objective>
+        <input type="text" data-lp-submit="objectiveAdd" data-lp-contrib placeholder="{{localize "LANCERPARTY.Objective.New"}}">
+        <button type="button" data-action="objectiveAdd" data-lp-contrib aria-label="{{localize "LANCERPARTY.Objective.Add"}}"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      {{/if}}
+    </fieldset>
+
+    <fieldset class="lp-clocks">
+      <legend>{{localize "LANCERPARTY.Clock.Title"}}
+        {{#if manage}}{{#if clocks.length}}<a class="lp-legend-action" data-action="clockReset" data-tooltip="LANCERPARTY.Clock.ResetAll"><i class="fa-solid fa-rotate-left"></i></a>{{/if}}{{/if}}
+      </legend>
+      <div class="lp-clock-grid">
+        {{#each clocks as |c|}}
+        <div class="lp-clock lp-clock-{{c.kind}}{{#if c.full}} full{{/if}}{{#if c.hidden}} lp-gm-hidden{{/if}}" data-clock-id="{{c.id}}">
+          <button type="button" class="lp-clock-face" data-action="clockTick" data-lp-contrib
+                  data-tooltip="LANCERPARTY.Clock.TickHint" aria-label="{{c.name}}: {{c.value}}/{{c.segments}}">
+            <svg viewBox="-50 -50 100 100" role="img" aria-hidden="true">
+              <circle r="48" class="lp-clock-rim"></circle>
+              {{#each c.segmentPaths as |seg|}}<path d="{{seg.d}}" class="lp-seg{{#if seg.filled}} filled{{/if}}"></path>{{/each}}
+            </svg>
+            <span class="lp-clock-value">{{c.value}}/{{c.segments}}</span>
+          </button>
+          <input type="text" class="lp-clock-name" value="{{c.name}}" data-lp-change="clockName" data-id="{{c.id}}" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Name"}}">
+          <div class="lp-clock-meta">
+            <select data-lp-change="clockKind" data-id="{{c.id}}" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.KindLabel"}}">
+              <option value="progress" {{#if (eq c.kind "progress")}}selected{{/if}}>{{localize "LANCERPARTY.Clock.Kind.progress"}}</option>
+              <option value="threat" {{#if (eq c.kind "threat")}}selected{{/if}}>{{localize "LANCERPARTY.Clock.Kind.threat"}}</option>
+            </select>
+            <select data-lp-change="clockSegments" data-id="{{c.id}}" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Segments"}}">
+              {{#each @root.clockSizes as |n|}}<option value="{{n}}" {{#if (eq n c.segments)}}selected{{/if}}>{{n}}</option>{{/each}}
+            </select>
+            {{#if @root.manage}}
+            <a data-action="clockHide" data-tooltip="LANCERPARTY.Common.ToggleHidden"><i class="fa-solid {{#if c.hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></a>
+            <a data-action="clockDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </div>
+        {{else}}
+        <p class="lp-dim">{{localize "LANCERPARTY.Clock.None"}}</p>
+        {{/each}}
+      </div>
+      {{#if contribute}}
+      <div class="lp-add-row" data-lp-new-clock>
+        <input type="text" data-lp-field="name" data-lp-submit="clockAdd" data-lp-contrib placeholder="{{localize "LANCERPARTY.Clock.NewName"}}">
+        <select data-lp-field="kind" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.KindLabel"}}">
+          <option value="progress">{{localize "LANCERPARTY.Clock.Kind.progress"}}</option>
+          <option value="threat">{{localize "LANCERPARTY.Clock.Kind.threat"}}</option>
+        </select>
+        <select data-lp-field="segments" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Segments"}}">
+          {{#each clockSizes as |n|}}<option value="{{n}}" {{#if (eq n 4)}}selected{{/if}}>{{n}}</option>{{/each}}
+        </select>
+        <button type="button" data-action="clockAdd" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Add"}}"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      {{/if}}
+    </fieldset>
+  </div>
+
+  <fieldset class="lp-log">
+    <legend>{{localize "LANCERPARTY.Log.Title"}}</legend>
+    {{#if log.length}}
+    <table class="lp-log-table">
+      <thead><tr><th>#</th><th>{{localize "LANCERPARTY.Mission.Name"}}</th><th>{{localize "LANCERPARTY.Mission.Sitrep"}}</th><th>{{localize "LANCERPARTY.Log.Outcome"}}</th><th>{{localize "LANCERPARTY.Log.Date"}}</th>{{#if manage}}<th></th>{{/if}}</tr></thead>
+      <tbody>
+        {{#each log as |e|}}
+        <tr data-log-id="{{e.id}}" class="outcome-{{e.outcome}}" {{#if e.notes}}title="{{e.notes}}"{{/if}}>
+          <td>{{e.number}}</td><td>{{e.name}}</td><td>{{e.sitrep}}</td><td>{{e.outcomeLabel}}</td><td>{{e.date}}</td>
+          {{#if @root.manage}}<td><a data-action="logDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a></td>{{/if}}
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else}}
+    <p class="lp-dim">{{localize "LANCERPARTY.Log.None"}}</p>
+    {{/if}}
+  </fieldset>
+</section>

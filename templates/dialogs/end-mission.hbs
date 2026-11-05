@@ -1,0 +1,24 @@
+<div class="lancer-party-dialog">
+  <p><strong>#{{mission.number}} {{#if mission.name}}{{mission.name}}{{else}}{{localize "LANCERPARTY.Mission.Untitled"}}{{/if}}</strong>{{#if mission.sitrep}} · {{mission.sitrep}}{{/if}}</p>
+  <div class="form-group">
+    <label for="lp-end-outcome">{{localize "LANCERPARTY.Log.Outcome"}}</label>
+    <select id="lp-end-outcome" name="outcome">
+      {{#each outcomes as |o|}}<option value="{{o.value}}">{{o.label}}</option>{{/each}}
+    </select>
+  </div>
+  <div class="form-group stacked">
+    <label for="lp-end-notes">{{localize "LANCERPARTY.EndMission.Notes"}}</label>
+    <input id="lp-end-notes" type="text" name="notes">
+  </div>
+  <fieldset>
+    <legend>{{localize "LANCERPARTY.EndMission.Steps"}}</legend>
+    <label class="checkbox"><input type="checkbox" name="log" checked> {{localize "LANCERPARTY.EndMission.Log"}}</label>
+    <label class="checkbox"><input type="checkbox" name="repair" checked> {{localize "LANCERPARTY.EndMission.Repair"}}</label>
+    {{#if pilots}}<label class="checkbox"><input type="checkbox" name="license" checked> {{localize "LANCERPARTY.EndMission.License"}}</label>{{/if}}
+    <label class="checkbox"><input type="checkbox" name="resetClocks"> {{localize "LANCERPARTY.EndMission.ResetClocks"}}</label>
+    <label class="checkbox"><input type="checkbox" name="clearObjectives" checked> {{localize "LANCERPARTY.EndMission.ClearObjectives"}}</label>
+    <label class="checkbox"><input type="checkbox" name="advance" checked> {{localize "LANCERPARTY.EndMission.Advance"}}</label>
+    <label class="checkbox"><input type="checkbox" name="chat" checked> {{localize "LANCERPARTY.EndMission.Chat"}}</label>
+  </fieldset>
+  <p class="hint">{{localize "LANCERPARTY.FullRepair.Warning"}}</p>
+</div>

@@ -1,0 +1,35 @@
+<div class="lancer-party-dialog">
+  <div class="form-group">
+    <label for="lp-check-select">{{localize "LANCERPARTY.Check.What"}}</label>
+    <select id="lp-check-select" name="check">
+      <optgroup label="{{localize "LANCERPARTY.Check.GroupHase"}}">
+        {{#each options.hase as |o|}}<option value="{{o.value}}" {{#if (eq o.value @root.selected)}}selected{{/if}}>{{o.label}}</option>{{/each}}
+      </optgroup>
+      {{#if options.skills.length}}
+      <optgroup label="{{localize "LANCERPARTY.Check.GroupSkills"}}">
+        {{#each options.skills as |o|}}<option value="{{o.value}}" {{#if (eq o.value @root.selected)}}selected{{/if}}>{{o.label}}</option>{{/each}}
+      </optgroup>
+      {{/if}}
+      <optgroup label="{{localize "LANCERPARTY.Check.GroupOther"}}">
+        {{#each options.other as |o|}}<option value="{{o.value}}" {{#if (eq o.value @root.selected)}}selected{{/if}}>{{o.label}}</option>{{/each}}
+      </optgroup>
+    </select>
+  </div>
+  <p class="hint">{{localize "LANCERPARTY.Check.SkillHint"}}</p>
+  <div class="form-group">
+    <label for="lp-check-mode">{{localize "LANCERPARTY.Check.ModeLabel"}}</label>
+    <select id="lp-check-mode" name="mode">
+      {{#each modes as |m|}}<option value="{{m.value}}">{{m.label}}</option>{{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="lp-check-title">{{localize "LANCERPARTY.Check.TitleLabel"}}</label>
+    <input id="lp-check-title" type="text" name="title" placeholder="{{localize "LANCERPARTY.Check.TitlePlaceholder"}}">
+  </div>
+  <fieldset>
+    <legend>{{localize "LANCERPARTY.Check.Who"}}</legend>
+    {{#each members as |m|}}
+    <label class="checkbox lp-check-member"><input type="checkbox" name="member-{{@index}}" checked> <img src="{{m.img}}" alt="" width="20" height="20"> {{m.name}}</label>
+    {{/each}}
+  </fieldset>
+</div>
