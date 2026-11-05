@@ -1,11 +1,9 @@
 <div class="lancer-party-card lp-group-check{{#if summary.outcome}} outcome-{{summary.outcome}}{{/if}}">
-  <header>
+  <header class="lp-card-bar">
     <i class="fa-solid fa-dice-d20"></i>
-    <div>
-      <h3>{{#if flag.title}}{{flag.title}}{{else}}{{localize "LANCERPARTY.Check.CardTitle"}}{{/if}}</h3>
-      <p class="lp-check-what">{{flag.check.label}} · {{modeLabel}} · {{localize "LANCERPARTY.Check.Target" target=flag.target}}</p>
-    </div>
+    <span class="lp-card-title">{{#if flag.title}}{{flag.title}}{{else}}{{localize "LANCERPARTY.Check.CardTitle"}}{{/if}}</span>
   </header>
+  <div class="lp-card-sub">{{flag.check.label}} // {{modeLabel}} // {{localize "LANCERPARTY.Check.Target" target=flag.target}}</div>
   <ol class="lp-check-rows">
     {{#each rows as |r|}}
     <li class="lp-check-row{{#if r.rolled}} rolled {{#if r.success}}success{{else}}failure{{/if}}{{/if}}" data-uuid="{{r.uuid}}">
@@ -20,7 +18,7 @@
     </li>
     {{/each}}
   </ol>
-  <footer>
+  <footer class="lp-card-footer">
     <span>{{localize "LANCERPARTY.Check.Tally" successes=summary.successes failures=summary.failures pending=summary.pending}}</span>
     {{#if outcomeLabel}}<strong class="lp-check-outcome">{{outcomeLabel}}</strong>{{/if}}
   </footer>

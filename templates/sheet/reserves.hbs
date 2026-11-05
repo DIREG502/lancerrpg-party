@@ -1,45 +1,54 @@
 <section class="tab lp-tab lp-tab-reserves {{tab.cssClass}}" data-tab="reserves" data-group="primary">
-  <div class="lp-manna">
-    <label for="{{rootId}}-manna"><i class="fa-solid fa-coins"></i> {{localize "LANCERPARTY.Reserves.Manna"}}</label>
+  <div class="lp-section-bar lp-bar-primary">
+    <span class="lp-section-title">{{localize "LANCERPARTY.Reserves.Manna"}}</span>
+  </div>
+  <div class="lp-panel lp-manna">
+    <i class="fa-solid fa-coins"></i>
     {{#if contribute}}
-    <button type="button" data-action="mannaAdjust" data-direction="-1" data-lp-contrib data-tooltip="LANCERPARTY.Reserves.MannaStep" aria-label="−"><i class="fa-solid fa-minus"></i></button>
-    <input id="{{rootId}}-manna" type="number" min="0" step="1" value="{{system.manna}}" data-lp-change="manna" data-lp-contrib>
-    <button type="button" data-action="mannaAdjust" data-direction="1" data-lp-contrib data-tooltip="LANCERPARTY.Reserves.MannaStep" aria-label="+"><i class="fa-solid fa-plus"></i></button>
+    <button type="button" class="lp-square-button" data-action="mannaAdjust" data-direction="-1" data-lp-contrib data-tooltip="LANCERPARTY.Reserves.MannaStep" aria-label="−"><i class="fa-solid fa-minus"></i></button>
+    <input id="{{rootId}}-manna" type="number" min="0" step="1" value="{{system.manna}}" data-lp-change="manna" data-lp-contrib aria-label="{{localize "LANCERPARTY.Reserves.Manna"}}">
+    <button type="button" class="lp-square-button" data-action="mannaAdjust" data-direction="1" data-lp-contrib data-tooltip="LANCERPARTY.Reserves.MannaStep" aria-label="+"><i class="fa-solid fa-plus"></i></button>
     {{else}}
-    <strong>{{system.manna}}</strong>
+    <strong class="lp-manna-value">{{system.manna}}</strong>
     {{/if}}
   </div>
 
-  <ul class="lp-reserve-list">
+  <div class="lp-section-bar lp-bar-secondary">
+    <span class="lp-section-title">{{localize "LANCERPARTY.Tab.reserves"}}</span>
+    <span class="lp-section-right">
+      <span class="lp-section-count">{{reserves.length}}</span>
+      {{#if contribute}}<a class="lp-bar-icon" data-action="reserveAddCustom" data-tooltip="LANCERPARTY.Reserves.AddCustom" aria-label="{{localize "LANCERPARTY.Reserves.AddCustom"}}"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </span>
+  </div>
+  <ul class="lp-rows">
     {{#each reserves as |r|}}
     <li class="lp-reserve" data-reserve-id="{{r.id}}">
-      <details>
-        <summary>
-          <img src="{{r.img}}" alt="">
-          <span class="lp-reserve-name">{{r.name}}</span>
-          <span class="lp-tag">{{r.typeLabel}}</span>
-          {{#if (gt r.quantity 1)}}<span class="lp-qty">×{{r.quantity}}</span>{{/if}}
-        </summary>
-        <div class="lp-prose">{{{r.enriched}}}</div>
-      </details>
-      <span class="lp-reserve-controls">
-        <a data-action="reservePost" data-tooltip="LANCERPARTY.Reserves.Post"><i class="fa-solid fa-comment"></i></a>
-        {{#if @root.contribute}}
-        {{#if @root.giveTargets.length}}<a data-action="reserveGive" data-tooltip="LANCERPARTY.Reserves.Give"><i class="fa-solid fa-hand-holding"></i></a>{{/if}}
-        <a data-action="reserveAdjust" data-delta="1" data-tooltip="LANCERPARTY.Reserves.More"><i class="fa-solid fa-plus"></i></a>
-        <a data-action="reserveAdjust" data-delta="-1" data-tooltip="LANCERPARTY.Reserves.Less"><i class="fa-solid fa-minus"></i></a>
-        <a data-action="reserveDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
-        {{/if}}
-      </span>
+      <div class="lp-row lp-item-row">
+        <span class="lp-item-icon"><img src="{{r.img}}" alt=""></span>
+        <details class="lp-row-main">
+          <summary><span class="lp-row-title lp-underlined">{{r.name}}</span><span class="lp-row-sub">{{r.typeLabel}}</span></summary>
+          <div class="lp-effect-box lp-effect-inline">
+            <span class="lp-effect-tag">{{localize "LANCERPARTY.Reserves.Description"}}</span>
+            <div class="lp-prose">{{{r.enriched}}}</div>
+          </div>
+        </details>
+        <span class="lp-qty" data-tooltip="LANCERPARTY.Reserves.Quantity">{{r.quantity}} <i class="cci cci-system-point"></i></span>
+        <span class="lp-row-controls">
+          <a class="lp-row-icon" data-action="reservePost" data-tooltip="LANCERPARTY.Reserves.Post"><i class="fa-solid fa-message"></i></a>
+          {{#if @root.contribute}}
+          {{#if @root.giveTargets.length}}<a class="lp-row-icon" data-action="reserveGive" data-tooltip="LANCERPARTY.Reserves.Give"><i class="fa-solid fa-hand-holding"></i></a>{{/if}}
+          <a class="lp-row-icon" data-action="reserveAdjust" data-delta="1" data-tooltip="LANCERPARTY.Reserves.More"><i class="fa-solid fa-plus"></i></a>
+          <a class="lp-row-icon" data-action="reserveAdjust" data-delta="-1" data-tooltip="LANCERPARTY.Reserves.Less"><i class="fa-solid fa-minus"></i></a>
+          <a class="lp-row-icon" data-action="reserveDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
+          {{/if}}
+        </span>
+      </div>
     </li>
     {{else}}
-    <li class="lp-empty-state"><i class="fa-solid fa-box-open"></i> {{localize "LANCERPARTY.Reserves.None"}}</li>
+    <li class="lp-empty-state"><i class="fa-solid fa-box-open"></i><p>{{localize "LANCERPARTY.Reserves.None"}}</p></li>
     {{/each}}
   </ul>
   {{#if contribute}}
-  <div class="lp-reserve-footer">
-    <p class="lp-hint"><i class="fa-solid fa-hand-pointer"></i> {{localize "LANCERPARTY.Reserves.DropHint"}}</p>
-    <button type="button" data-action="reserveAddCustom" data-lp-contrib><i class="fa-solid fa-plus"></i> {{localize "LANCERPARTY.Reserves.AddCustom"}}</button>
-  </div>
+  <p class="lp-hint"><i class="fa-solid fa-hand-pointer"></i> {{localize "LANCERPARTY.Reserves.DropHint"}}</p>
   {{/if}}
 </section>

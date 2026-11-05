@@ -1,7 +1,11 @@
 <section class="tab lp-tab lp-tab-notes {{tab.cssClass}}" data-tab="notes" data-group="primary">
-  {{#if editable}}
-  {{formInput systemFields.description name="system.description" value=sourceSystem.description enriched=enrichedDescription toggled=true}}
-  {{else}}
-  <div class="lp-prose">{{{enrichedDescription}}}</div>
-  {{/if}}
+  <div class="lp-section-bar lp-bar-neutral"><span class="lp-section-title">{{localize "LANCERPARTY.Tab.notes"}}</span></div>
+  <div class="lp-effect-box lp-notes-box">
+    <span class="lp-effect-tag">{{localize "LANCERPARTY.Sheet.Dossier"}}</span>
+    {{#if editable}}
+    {{formInput systemFields.description name="system.description" value=sourceSystem.description enriched=enrichedDescription toggled=true}}
+    {{else}}
+    <div class="lp-prose">{{{enrichedDescription}}}</div>
+    {{/if}}
+  </div>
 </section>

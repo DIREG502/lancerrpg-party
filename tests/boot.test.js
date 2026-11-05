@@ -54,7 +54,7 @@ test("init wires data model, sheet, sidebar, collection, query, templates, setti
   assert.deepEqual(Object.keys(CONFIG.ui.actors.PARTS), ["header", "directory", "footer", "lancerParties"]);
   assert.ok(Object.prototype.isPrototypeOf.call(BaseActors, CONFIG.Actor.collection));
   assert.equal(typeof CONFIG.queries[QUERY_NAME], "function");
-  assert.equal(loaded.length, 11);
+  assert.equal(loaded.length, 12);
   assert.deepEqual(settings.map(s => s.key).sort(), [
     "activeParty", "autoCreateParty", "createdFirstParty", "defaultOwnership", "expandedParties",
     "hideMembers", "memberEditing", "showMechsInSidebar", "statsVisibility"

@@ -1,0 +1,66 @@
+<aside class="lp-sidebar">
+  <div class="lp-side-caption">{{localize "LANCERPARTY.Side.Statistics"}}</div>
+  <div class="lp-ribbon">
+    {{#if system.mission.name}}#{{system.mission.number}} {{system.mission.name}}{{else}}{{localize "LANCERPARTY.Mission.Label"}} #{{system.mission.number}}{{/if}}
+  </div>
+
+  <div class="lp-hex-cluster lp-hex-cluster-squad">
+    <div class="lp-hex lp-hex-lg" data-tooltip="LANCERPARTY.Summary.AverageLL">
+      <div class="lp-hex-inner"><span class="lp-hex-label">{{localize "LANCERPARTY.Side.AvgLL"}}</span><span class="lp-hex-value">{{#if summary.pilots}}{{summary.averageLL}}{{else}}–{{/if}}</span></div>
+    </div>
+    <div class="lp-hex" data-tooltip="LANCERPARTY.Summary.Members">
+      <div class="lp-hex-inner"><span class="lp-hex-label">{{localize "LANCERPARTY.Side.Squad"}}</span><span class="lp-hex-value">{{summary.members}}</span></div>
+    </div>
+    <div class="lp-hex" data-tooltip="LANCERPARTY.Side.MinMaxLL">
+      <div class="lp-hex-inner"><span class="lp-hex-label">{{localize "LANCERPARTY.Side.Range"}}</span><span class="lp-hex-value lp-hex-value-sm">{{#if summary.pilots}}{{summary.minLL}}–{{summary.maxLL}}{{else}}–{{/if}}</span></div>
+    </div>
+    <div class="lp-hex" data-tooltip="LANCERPARTY.Side.MechsTip">
+      <div class="lp-hex-inner"><span class="lp-hex-label">{{localize "LANCERPARTY.Side.Mechs"}}</span><span class="lp-hex-value">{{summary.mechs}}</span></div>
+    </div>
+  </div>
+
+  <div class="lp-statline">
+    <div class="lp-stat" data-tooltip="LANCERPARTY.Summary.Structure"><i class="cci cci-structure"></i><span class="lp-stat-value">{{summary.structure}}/{{summary.structureMax}}</span><span class="lp-stat-label">{{localize "LANCERPARTY.Side.Struct"}}</span></div>
+    <div class="lp-stat" data-tooltip="LANCERPARTY.Summary.Repairs"><i class="cci cci-repair"></i><span class="lp-stat-value">{{summary.repairs}}/{{summary.repairsMax}}</span><span class="lp-stat-label">{{localize "LANCERPARTY.Side.Repr"}}</span></div>
+    <div class="lp-stat" data-tooltip="LANCERPARTY.Reserves.Manna"><i class="fa-solid fa-coins"></i><span class="lp-stat-value">{{system.manna}}</span><span class="lp-stat-label">{{localize "LANCERPARTY.Side.Manna"}}</span></div>
+  </div>
+
+  {{#if summary.mechs}}
+  <div class="lp-meters">
+    <div class="lp-meter-pair">
+      <div class="lp-meter-labels"><span>{{localize "LANCERPARTY.Stat.HP"}}</span><span>{{localize "LANCERPARTY.Side.Struct"}}</span></div>
+      <div class="lp-meter-stack">
+        {{#if summary.hp}}<div class="lp-meter lp-meter-hp" style="--lp-fill: {{summary.hp.pct}}%"><span>{{summary.hp.value}}/{{summary.hp.max}}</span></div>{{/if}}
+        {{#if summary.structureMeter}}<div class="lp-meter lp-meter-structure" style="--lp-fill: {{summary.structureMeter.pct}}%"><span>{{summary.structureMeter.value}}/{{summary.structureMeter.max}}</span></div>{{/if}}
+      </div>
+      <div class="lp-meter-box lp-box-shield" data-tooltip="LANCERPARTY.Side.ShieldTip"><span>{{summary.overshield}}</span><small>{{localize "LANCERPARTY.Side.Shld"}}</small></div>
+    </div>
+    <div class="lp-meter-pair">
+      <div class="lp-meter-labels"><span>{{localize "LANCERPARTY.Stat.Heat"}}</span><span>{{localize "LANCERPARTY.Stat.StressShort"}}</span></div>
+      <div class="lp-meter-stack">
+        {{#if summary.heat}}<div class="lp-meter lp-meter-heat" style="--lp-fill: {{summary.heat.pct}}%"><span>{{summary.heat.value}}/{{summary.heat.max}}</span></div>{{/if}}
+        {{#if summary.stressMeter}}<div class="lp-meter lp-meter-stress" style="--lp-fill: {{summary.stressMeter.pct}}%"><span>{{summary.stressMeter.value}}/{{summary.stressMeter.max}}</span></div>{{/if}}
+      </div>
+      <div class="lp-meter-box lp-box-burn" data-tooltip="LANCERPARTY.Side.BurnTip"><span>{{summary.burn}}</span><small>{{localize "LANCERPARTY.Side.Burn"}}</small></div>
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="lp-statline">
+    <div class="lp-stat" data-tooltip="LANCERPARTY.Objective.Title"><i class="fa-solid fa-list-check"></i><span class="lp-stat-value">{{doneObjectives}}/{{visibleObjectives}}</span><span class="lp-stat-label">{{localize "LANCERPARTY.Side.Obj"}}</span></div>
+    <div class="lp-stat{{#if summary.damaged}} lp-stat-warn{{/if}}" data-tooltip="LANCERPARTY.Side.DamagedTip"><i class="fa-solid fa-triangle-exclamation"></i><span class="lp-stat-value">{{summary.damaged}}</span><span class="lp-stat-label">{{localize "LANCERPARTY.Side.Dmg"}}</span></div>
+    <div class="lp-stat{{#if summary.destroyed}} lp-stat-bad{{/if}}" data-tooltip="LANCERPARTY.Summary.Destroyed"><i class="fa-solid fa-skull"></i><span class="lp-stat-value">{{summary.destroyed}}</span><span class="lp-stat-label">{{localize "LANCERPARTY.Side.Lost"}}</span></div>
+  </div>
+
+  <div class="lp-side-caption lp-bracketed">{{localize "LANCERPARTY.Side.Actions"}}</div>
+  <ul class="lp-action-list">
+    {{#if manage}}<li><button type="button" data-action="groupCheck"><span class="lp-grip"><i class="fa-solid fa-dice-d20"></i></span><span>{{localize "LANCERPARTY.Action.GroupCheck"}}</span></button></li>{{/if}}
+    {{#if isGM}}<li><button type="button" data-action="deploy" data-tooltip="LANCERPARTY.Action.DeployHint"><span class="lp-grip"><i class="fa-solid fa-parachute-box"></i></span><span>{{localize "LANCERPARTY.Action.Deploy"}}</span></button></li>
+    <li><button type="button" data-action="recall" data-tooltip="LANCERPARTY.Action.RecallHint"><span class="lp-grip"><i class="fa-solid fa-person-walking-arrow-loop-left"></i></span><span>{{localize "LANCERPARTY.Action.Recall"}}</span></button></li>{{/if}}
+    {{#if contribute}}<li><button type="button" data-action="combat" data-lp-contrib data-tooltip="LANCERPARTY.Action.CombatHint"><span class="lp-grip"><i class="cci cci-encounter"></i></span><span>{{localize "LANCERPARTY.Action.Combat"}}</span></button></li>{{/if}}
+    {{#if manage}}<li><button type="button" data-action="fullRepair" data-tooltip="LANCERPARTY.Action.FullRepairHint"><span class="lp-grip"><i class="cci cci-repair"></i></span><span>{{localize "LANCERPARTY.Action.FullRepair"}}</span></button></li>{{/if}}
+    {{#if isGM}}<li><button type="button" data-action="awardLicense" data-tooltip="LANCERPARTY.Action.LicenseHint"><span class="lp-grip"><i class="cci cci-license"></i></span><span>{{localize "LANCERPARTY.Action.License"}}</span></button></li>
+    <li><button type="button" data-action="endMission" class="lp-action-primary"><span class="lp-grip"><i class="fa-solid fa-flag-checkered"></i></span><span>{{localize "LANCERPARTY.Action.EndMission"}}</span></button></li>{{/if}}
+    {{#if contribute}}<li><button type="button" data-action="roster" data-lp-contrib data-tooltip="LANCERPARTY.Action.RosterHint"><span class="lp-grip"><i class="fa-solid fa-comment"></i></span><span>{{localize "LANCERPARTY.Action.Roster"}}</span></button></li>{{/if}}
+  </ul>
+</aside>

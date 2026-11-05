@@ -207,7 +207,19 @@ export function summarizeParty(snaps) {
   const levels = pilots.map(p => p.level ?? 0);
   const mechs = snaps.map(m => m.mech).filter(Boolean);
   const sum = (list, f) => list.reduce((acc, x) => acc + (f(x) ?? 0), 0);
+  /** Squad-wide meter: total value / total max over all mechs (and NPC allies). */
+  const meter = key => {
+    const value = sum(mechs, m => m[key]?.value);
+    const max = sum(mechs, m => m[key]?.max);
+    return max > 0 ? { value, max, pct: Math.max(0, Math.min(100, Math.round((value / max) * 100))) } : null;
+  };
   return {
+    hp: meter("hp"),
+    heat: meter("heat"),
+    structureMeter: meter("structure"),
+    stressMeter: meter("stress"),
+    overshield: sum(mechs, m => m.overshield),
+    burn: sum(mechs, m => m.burn),
     members: snaps.length,
     pilots: pilots.length,
     mechs: mechs.length,

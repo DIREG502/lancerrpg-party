@@ -108,6 +108,18 @@ lp.openSheet(party);
 
 The `lancer-party.ready` hook fires with the API once the module is ready.
 
+## Look and feel
+
+The party sheet uses the visual language of [Lancer Alternative Sheets](https://github.com/annoyedb/lancer-alternative-sheets):
+
+- a header band in the primary colour, with a terminal-style readout and navy tab buttons;
+- a dark statistics sidebar with hexagon badges, paired HP/structure and heat/stress meters, and the squad actions as a macro-style list;
+- colour-coded section bars, dark item rows with underlined titles, and tagged "effect" boxes.
+
+Each pilot's card shows the active mech's meters and stats next to the pilot's GRIT and HASE hexes. Colours follow the Lancer system's **UI Theme** setting (GMS, GMS Dark, HORUS, HA, IPS-N, SSC, MSMC, GALSIM), using the COMP/CON manufacturer palettes. Stat icons come from the COMP/CON glyph font that Lancer already loads.
+
+The styles are written from scratch for this module: Lancer Alternative Sheets is GPL-3.0, and no code was copied from it. Noto Sans and JetBrains Mono are bundled under the SIL Open Font License; see `assets/fonts/OFL.txt`.
+
 ## Design notes and decisions
 
 What was adopted, changed or left out after reading the PF2e and CoC7 sources and the Lancer 3.1.3 system:

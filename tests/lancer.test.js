@@ -95,6 +95,10 @@ describe("snapshots", () => {
     assert.equal(summary.mechs, 1);
     assert.equal(summary.damaged, 1);
     assert.equal(summary.structure, 3);
+    assert.deepEqual(summary.hp, { value: 7, max: 10, pct: 70 });
+    assert.deepEqual(summary.stressMeter, { value: 4, max: 4, pct: 100 });
+    assert.equal(summary.overshield, 2);
+    assert.equal(summarizeParty([]).hp, null);
   });
 });
 

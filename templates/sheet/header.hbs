@@ -1,51 +1,38 @@
-<header class="lp-sheet-header">
-  <img class="lp-portrait" src="{{party.img}}" alt="{{party.name}}"
-       {{#if editable}}data-action="editImage" data-edit="img" data-tooltip="LANCERPARTY.Sheet.EditImage"{{/if}}>
-  <div class="lp-heading">
-    <div class="lp-title-row">
-      {{#if editable}}
-      <input class="lp-name" type="text" name="name" value="{{party.name}}" placeholder="{{localize "LANCERPARTY.Sheet.NamePlaceholder"}}">
-      {{else}}
-      <h1 class="lp-name">{{party.name}}</h1>
-      {{/if}}
+<header class="lp-header">
+  <div class="lp-header-art" aria-hidden="true">
+    <img src="{{party.img}}" alt="">
+  </div>
+  <div class="lp-header-main">
+    {{#if editable}}
+    <input class="lp-header-name" type="text" name="name" value="{{party.name}}"
+           placeholder="{{localize "LANCERPARTY.Sheet.NamePlaceholder"}}" aria-label="{{localize "LANCERPARTY.Sheet.NamePlaceholder"}}">
+    {{else}}
+    <h1 class="lp-header-name">{{party.name}}</h1>
+    {{/if}}
+    <div class="lp-header-sub">
+      <span>{{localize "LANCERPARTY.TypeLabel"}}</span>
       {{#if isActive}}
-      <span class="lp-badge lp-badge-active"><i class="fa-solid fa-star"></i> {{localize "LANCERPARTY.Sidebar.Active"}}</span>
+      <span class="lp-header-flag"><i class="fa-solid fa-star"></i> {{localize "LANCERPARTY.Sidebar.Active"}}</span>
       {{else if isGM}}
-      <button type="button" class="lp-badge lp-badge-button" data-action="setActive"><i class="fa-regular fa-star"></i> {{localize "LANCERPARTY.Sidebar.SetActive"}}</button>
+      <button type="button" class="lp-header-flag lp-flag-button" data-action="setActive"><i class="fa-regular fa-star"></i> {{localize "LANCERPARTY.Sidebar.SetActive"}}</button>
       {{/if}}
     </div>
     {{#unless limited}}
-    <div class="lp-summary">
-      <span><i class="fa-solid fa-users"></i> {{localize "LANCERPARTY.Summary.Members"}}: <strong>{{summary.members}}</strong></span>
-      {{#if summary.pilots}}
-      <span><i class="fa-solid fa-id-badge"></i> {{localize "LANCERPARTY.Summary.AverageLL"}}: <strong>{{summary.averageLL}}</strong>
-        {{#if (ne summary.minLL summary.maxLL)}}<span class="lp-dim">({{summary.minLL}}–{{summary.maxLL}})</span>{{/if}}</span>
-      {{/if}}
-      {{#if summary.mechs}}
-      <span><i class="fa-solid fa-robot"></i> {{localize "LANCERPARTY.Summary.Structure"}}: <strong>{{summary.structure}}/{{summary.structureMax}}</strong></span>
-      <span><i class="fa-solid fa-wrench"></i> {{localize "LANCERPARTY.Summary.Repairs"}}: <strong>{{summary.repairs}}/{{summary.repairsMax}}</strong></span>
-      {{#if summary.destroyed}}<span class="lp-warn"><i class="fa-solid fa-skull"></i> {{localize "LANCERPARTY.Summary.Destroyed"}}: <strong>{{summary.destroyed}}</strong></span>{{/if}}
-      {{/if}}
-      <span><i class="fa-solid fa-crosshairs"></i> {{localize "LANCERPARTY.Mission.Label"}} #{{system.mission.number}}{{#if system.mission.name}}: {{system.mission.name}}{{/if}}</span>
+    <div class="lp-terminal">
+      <div>&gt; {{localize "LANCERPARTY.Terminal.Roster" members=summary.members pilots=summary.pilots mechs=summary.mechs}}</div>
+      <div>&gt; {{localize "LANCERPARTY.Terminal.Mission" number=system.mission.number status=missionStatusLabel}}{{#if system.mission.name}} // {{system.mission.name}}{{/if}}{{#if system.mission.sitrep}} // {{system.mission.sitrep}}{{/if}}</div>
+      <div class="lp-prompt">&gt;//: <span class="lp-cursor">_</span></div>
     </div>
-    <nav class="lp-toolbar" aria-label="{{localize "LANCERPARTY.Sheet.Toolbar"}}">
-      {{#if manage}}
-      <button type="button" data-action="groupCheck"><i class="fa-solid fa-dice-d20"></i> {{localize "LANCERPARTY.Action.GroupCheck"}}</button>
-      {{/if}}
-      {{#if isGM}}
-      <button type="button" data-action="deploy" data-tooltip="LANCERPARTY.Action.DeployHint"><i class="fa-solid fa-parachute-box"></i> {{localize "LANCERPARTY.Action.Deploy"}}</button>
-      <button type="button" data-action="recall" data-tooltip="LANCERPARTY.Action.RecallHint"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> {{localize "LANCERPARTY.Action.Recall"}}</button>
-      {{/if}}
-      <button type="button" data-action="combat" data-lp-contrib data-tooltip="LANCERPARTY.Action.CombatHint"><i class="fa-solid fa-swords"></i> {{localize "LANCERPARTY.Action.Combat"}}</button>
-      {{#if manage}}
-      <button type="button" data-action="fullRepair" data-tooltip="LANCERPARTY.Action.FullRepairHint"><i class="fa-solid fa-screwdriver-wrench"></i> {{localize "LANCERPARTY.Action.FullRepair"}}</button>
-      {{/if}}
-      {{#if isGM}}
-      <button type="button" data-action="awardLicense" data-tooltip="LANCERPARTY.Action.LicenseHint"><i class="fa-solid fa-angles-up"></i> {{localize "LANCERPARTY.Action.License"}}</button>
-      <button type="button" data-action="endMission"><i class="fa-solid fa-flag-checkered"></i> {{localize "LANCERPARTY.Action.EndMission"}}</button>
-      {{/if}}
-      <button type="button" data-action="roster" data-lp-contrib data-tooltip="LANCERPARTY.Action.RosterHint"><i class="fa-solid fa-comment"></i> {{localize "LANCERPARTY.Action.Roster"}}</button>
-    </nav>
     {{/unless}}
   </div>
+  <div class="lp-header-side">
+    {{#if editable}}
+    <button type="button" class="lp-icon-button" data-action="editImage" data-edit="img" data-tooltip="LANCERPARTY.Sheet.EditImage" aria-label="{{localize "LANCERPARTY.Sheet.EditImage"}}"><i class="fa-solid fa-image"></i></button>
+    {{/if}}
+  </div>
+  <nav class="lp-tabs" aria-label="{{localize "LANCERPARTY.Sheet.Tabs"}}">
+    {{#each tabs as |t|}}
+    <a class="lp-tab-button {{t.cssClass}}" data-action="tab" data-group="primary" data-tab="{{t.id}}"><i class="{{t.icon}}" inert></i> <span>{{localize t.label}}</span></a>
+    {{/each}}
+  </nav>
 </header>

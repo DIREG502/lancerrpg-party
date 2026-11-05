@@ -19,7 +19,8 @@
     "Sheet": {
       "EditImage": "Change image",
       "NamePlaceholder": "Squad name",
-      "Toolbar": "Party actions"
+      "Tabs": "Sheet sections",
+      "Dossier": "Dossier"
     },
     "Summary": {
       "Members": "Members",
@@ -65,9 +66,7 @@
       "HP": "HP",
       "PilotHP": "Pilot HP",
       "Heat": "Heat",
-      "Structure": "Structure",
       "StructureShort": "STR",
-      "Stress": "Reactor stress",
       "StressShort": "STRESS",
       "Repairs": "Repair capacity",
       "CorePower": "Core power",
@@ -81,10 +80,19 @@
       "EvasionShort": "EVA",
       "EDefShort": "E-DEF",
       "ArmorShort": "ARM",
-      "SpeedShort": "SPD",
       "SensorsShort": "SENS",
       "SaveShort": "SAVE",
-      "TechShort": "TECH"
+      "TechShort": "TECH",
+      "Size": "Size",
+      "SizeShort": "Size",
+      "Speed": "Speed",
+      "Overshield": "Overshield",
+      "Armor": "Armor",
+      "Evasion": "Evasion",
+      "EDef": "E-Defense",
+      "TechAttack": "Tech attack",
+      "Save": "Save target",
+      "Sensors": "Sensors"
     },
     "HASE": {
       "hull": "Hull",
@@ -141,8 +149,7 @@
     "Log": {
       "Title": "Mission log",
       "None": "No completed missions yet.",
-      "Outcome": "Outcome",
-      "Date": "Date"
+      "Outcome": "Outcome"
     },
     "Reserves": {
       "Manna": "Manna",
@@ -163,7 +170,8 @@
       "More": "Add one",
       "Less": "Remove one",
       "DeleteTitle": "Delete reserve",
-      "DeleteBody": "Delete this reserve from the party stash?"
+      "DeleteBody": "Delete this reserve from the party stash?",
+      "Quantity": "Quantity"
     },
     "Common": {
       "Delete": "Delete",
@@ -315,6 +323,37 @@
         "invalid": "That change isn't valid.",
         "notFound": "That entry no longer exists."
       }
+    },
+    "Terminal": {
+      "Roster": "Squad roster: {members} // pilots {pilots} // mechs {mechs}",
+      "Mission": "Mission #{number} // {status}"
+    },
+    "Side": {
+      "Statistics": "Statistics",
+      "AvgLL": "Avg LL",
+      "Squad": "Squad",
+      "Range": "LL range",
+      "MinMaxLL": "Lowest – highest License Level",
+      "Mechs": "Mechs",
+      "MechsTip": "Mechs and NPC allies in the field",
+      "Struct": "Struct",
+      "Repr": "Repr",
+      "Manna": "Manna",
+      "Shld": "Shld",
+      "Burn": "Burn",
+      "ShieldTip": "Total overshield across the squad",
+      "BurnTip": "Total burn across the squad",
+      "Obj": "Obj",
+      "Dmg": "Dmg",
+      "DamagedTip": "Mechs that have lost HP or structure",
+      "Lost": "Lost",
+      "Actions": "Squad actions"
+    },
+    "HASEShort": {
+      "hull": "Hull",
+      "agi": "Agi",
+      "sys": "Sys",
+      "eng": "Eng"
     }
   }
 }

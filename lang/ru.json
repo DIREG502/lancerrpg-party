@@ -19,7 +19,8 @@
     "Sheet": {
       "EditImage": "Сменить изображение",
       "NamePlaceholder": "Название отряда",
-      "Toolbar": "Действия отряда"
+      "Tabs": "Разделы листа",
+      "Dossier": "Досье"
     },
     "Summary": {
       "Members": "Участники",
@@ -65,9 +66,7 @@
       "HP": "ОЗ",
       "PilotHP": "ОЗ пилота",
       "Heat": "Нагрев",
-      "Structure": "Структура",
       "StructureShort": "СТР",
-      "Stress": "Нагрузка реактора",
       "StressShort": "РЕАКТ",
       "Repairs": "Запас ремонта",
       "CorePower": "Энергия ядра",
@@ -79,12 +78,21 @@
       "Grit": "Стойкость",
       "GritShort": "СТОЙК",
       "EvasionShort": "УКЛ",
-      "EDefShort": "Э-ЗАЩ",
-      "ArmorShort": "БРОНЯ",
-      "SpeedShort": "СКОР",
+      "EDefShort": "ЭЗАЩ",
+      "ArmorShort": "БРОН",
       "SensorsShort": "СЕНС",
       "SaveShort": "СПАС",
-      "TechShort": "ТЕХ"
+      "TechShort": "ТЕХ",
+      "Size": "Размер",
+      "SizeShort": "Разм",
+      "Speed": "Скорость",
+      "Overshield": "Сверхщит",
+      "Armor": "Броня",
+      "Evasion": "Уклонение",
+      "EDef": "Электронная защита",
+      "TechAttack": "Техатака",
+      "Save": "Сложность спасброска",
+      "Sensors": "Сенсоры"
     },
     "HASE": {
       "hull": "Корпус",
@@ -141,8 +149,7 @@
     "Log": {
       "Title": "Журнал миссий",
       "None": "Завершённых миссий пока нет.",
-      "Outcome": "Итог",
-      "Date": "Дата"
+      "Outcome": "Итог"
     },
     "Reserves": {
       "Manna": "Манна",
@@ -163,7 +170,8 @@
       "More": "Добавить один",
       "Less": "Убрать один",
       "DeleteTitle": "Удаление резерва",
-      "DeleteBody": "Удалить этот резерв из общего запаса?"
+      "DeleteBody": "Удалить этот резерв из общего запаса?",
+      "Quantity": "Количество"
     },
     "Common": {
       "Delete": "Удалить",
@@ -315,6 +323,37 @@
         "invalid": "Недопустимое изменение.",
         "notFound": "Эта запись больше не существует."
       }
+    },
+    "Terminal": {
+      "Roster": "Состав отряда: {members} // пилотов {pilots} // мехов {mechs}",
+      "Mission": "Миссия №{number} // {status}"
+    },
+    "Side": {
+      "Statistics": "Статистика",
+      "AvgLL": "Ср. LL",
+      "Squad": "Отряд",
+      "Range": "LL от–до",
+      "MinMaxLL": "Наименьший – наибольший уровень лицензии",
+      "Mechs": "Мехи",
+      "MechsTip": "Мехи и союзники-NPC в строю",
+      "Struct": "Струк",
+      "Repr": "Рем",
+      "Manna": "Манна",
+      "Shld": "Щит",
+      "Burn": "Гор",
+      "ShieldTip": "Суммарный сверхщит отряда",
+      "BurnTip": "Суммарное горение отряда",
+      "Obj": "ЗАД",
+      "Dmg": "ПОВР",
+      "DamagedTip": "Мехи, потерявшие ОЗ или структуру",
+      "Lost": "ПОТ",
+      "Actions": "Действия отряда"
+    },
+    "HASEShort": {
+      "hull": "Корп",
+      "agi": "Ловк",
+      "sys": "Сист",
+      "eng": "Инж"
     }
   }
 }

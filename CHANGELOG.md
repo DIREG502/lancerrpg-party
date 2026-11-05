@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 (unreleased)
+
+### Changed
+
+- **New party sheet design**, modelled on Lancer Alternative Sheets:
+  - header band with a terminal readout, and the tabs moved into the header;
+  - dark statistics sidebar with a hex cluster for average/range License Level, squad and mech count, squad-wide meters, and the party actions as a macro-style list;
+  - section bars, dark item rows and tagged effect boxes on the Mission, Reserves and Notes tabs;
+  - member cards with mech meters, a stat line using COMP/CON icons, and the pilot's GRIT/HASE hexes.
+- Colours follow the Lancer system's UI Theme (8 manufacturer palettes). Threat clocks are always red.
+- Chat cards and Actors-tab party folders restyled to match.
+- Bundled Noto Sans and JetBrains Mono (Latin + Cyrillic, SIL OFL 1.1).
+- Russian stat abbreviations shortened to fit.
+
 ## 1.0.0 (2026-11-05)
 
 First release.

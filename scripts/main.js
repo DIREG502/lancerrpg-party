@@ -78,6 +78,7 @@ Hooks.once("init", () => {
   foundry.applications.handlebars.loadTemplates([
     `${TEMPLATES}/sidebar/parties.hbs`,
     `${TEMPLATES}/sheet/header.hbs`,
+    `${TEMPLATES}/sheet/sidebar.hbs`,
     `${TEMPLATES}/sheet/squad.hbs`,
     `${TEMPLATES}/sheet/mission.hbs`,
     `${TEMPLATES}/sheet/reserves.hbs`,

@@ -67,10 +67,25 @@ const base = {
 };
 
 describe("sheet templates render", () => {
-  test("header", () => {
-    const html = tpl("sheet/header.hbs")(base);
-    assert.match(html, /data-action="groupCheck"/);
+  test("header: name, active flag, terminal readout, tab buttons", () => {
+    const tabList = Object.values(tabs).map(t => ({ ...t, icon: "fa-solid fa-users", label: `LANCERPARTY.Tab.${t.id}` }));
+    const html = tpl("sheet/header.hbs")({ ...base, tabs: tabList, missionStatusLabel: "Active" });
     assert.match(html, /data-action="setActive"/);
+    assert.match(html, /class="lp-terminal"/);
+    assert.equal((html.match(/data-action="tab"/g) ?? []).length, 4);
+    assert.match(html, /lp-tab-button active" data-action="tab" data-group="primary" data-tab="squad"/);
+  });
+
+  test("sidebar: hex cluster, squad meters, permission-gated actions", () => {
+    const ctx = { ...base, doneObjectives: 1, visibleObjectives: 3 };
+    const gm = tpl("sheet/sidebar.hbs")(ctx);
+    assert.equal((gm.match(/class="lp-hex /g) ?? []).length + (gm.match(/class="lp-hex"/g) ?? []).length, 4);
+    assert.match(gm, /lp-meter lp-meter-hp" style="--lp-fill: 80%"/);
+    for (const action of ["groupCheck", "deploy", "recall", "combat", "fullRepair", "awardLicense", "endMission", "roster"]) {
+      assert.match(gm, new RegExp(`data-action="${action}"`), action);
+    }
+    const player = tpl("sheet/sidebar.hbs")({ ...ctx, manage: false, isGM: false, contribute: true });
+    assert.deepEqual([...player.matchAll(/data-action="(\w+)"/g)].map(m => m[1]), ["combat", "roster"]);
   });
 
   test("squad: escapes names, shows mech data, hides restricted stats", () => {
@@ -78,16 +93,19 @@ describe("sheet templates render", () => {
     assert.ok(html.includes("Ada &lt;script&gt;"), "name escaped");
     assert.ok(!html.includes("<script>"));
     assert.match(html, /Everest/);
-    assert.equal((html.match(/lp-pip filled/g) ?? []).length, 2 + 4 + 3, "structure+stress+repairs pips");
+    assert.equal((html.match(/lp-pip filled/g) ?? []).length, 3, "repair pips");
+    assert.match(html, /lp-meter lp-meter-structure" style="--lp-fill: 50%"/);
+    assert.match(html, /lp-meter lp-meter-stress" style="--lp-fill: 100%"/);
+    assert.match(html, /lp-hex-cluster-hase/);
     assert.match(html, /data-action="pruneMissing"/);
-    // Restricted NPC: no stat grid for it — exactly one stats block (the pilot's mech).
-    assert.equal((html.match(/class="lp-stats"/g) ?? []).length, 1);
+    // Restricted NPC: no telemetry for it, so exactly one stat line (the pilot's mech).
+    assert.equal((html.match(/lp-statline-compact/g) ?? []).length, 1);
   });
 
   test("squad limited view", () => {
     const html = tpl("sheet/squad.hbs")({ ...base, limited: true, tab: tabs.squad });
     assert.match(html, /lp-limited-list/);
-    assert.ok(!html.includes("lp-stats"));
+    assert.ok(!html.includes("lp-statline"));
   });
 
   test("mission", () => {
@@ -114,7 +132,7 @@ describe("sheet templates render", () => {
       reserves: [{ id: "r1", name: "Supply drop", img: "x.svg", typeLabel: "Reserve", quantity: 3, enriched: "<p>Ammo</p>" }],
       giveTargets: [{ uuid: pilot.uuid, name: "Ada" }]
     });
-    assert.match(html, /×3/);
+    assert.match(html, /class="lp-qty"[^>]*>3 </);
     assert.match(html, /data-action="reserveGive"/);
     const notes = tpl("sheet/notes.hbs")({ ...base, tab: tabs.notes, enrichedDescription: "" });
     assert.match(notes, /prose-mirror name="system.description"/);

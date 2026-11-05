@@ -1,6 +1,6 @@
 {
   "name": "lancer-party",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Development metadata for tests and checks only. Not needed by Foundry VTT.",
   "type": "module",

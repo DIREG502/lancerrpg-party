@@ -1,72 +1,78 @@
 <section class="tab lp-tab lp-tab-mission {{tab.cssClass}}" data-tab="mission" data-group="primary">
-  <fieldset class="lp-mission-details">
-    <legend>{{localize "LANCERPARTY.Mission.Current"}}</legend>
-    <div class="lp-row">
-      <div class="form-group lp-narrow">
-        <label for="{{rootId}}-mnum">#</label>
-        <input id="{{rootId}}-mnum" type="number" name="system.mission.number" value="{{system.mission.number}}" min="0" step="1" {{disabled (not editable)}}>
-      </div>
-      <div class="form-group lp-grow">
-        <label for="{{rootId}}-mname">{{localize "LANCERPARTY.Mission.Name"}}</label>
-        <input id="{{rootId}}-mname" type="text" name="system.mission.name" value="{{system.mission.name}}" placeholder="{{localize "LANCERPARTY.Mission.Untitled"}}" {{disabled (not editable)}}>
-      </div>
+  <div class="lp-section-bar lp-bar-primary">
+    <span class="lp-section-title">{{localize "LANCERPARTY.Mission.Current"}}</span>
+    <span class="lp-section-right"><span class="lp-section-ll">{{missionStatusLabel}}</span></span>
+  </div>
+  <div class="lp-panel lp-mission-form">
+    <div class="lp-field lp-field-narrow">
+      <label for="{{rootId}}-mnum">#</label>
+      <input id="{{rootId}}-mnum" type="number" name="system.mission.number" value="{{system.mission.number}}" min="0" step="1" {{disabled (not editable)}}>
     </div>
-    <div class="lp-row">
-      <div class="form-group lp-grow">
-        <label for="{{rootId}}-msitrep" data-tooltip="LANCERPARTY.Mission.SitrepHint">{{localize "LANCERPARTY.Mission.Sitrep"}}</label>
-        <input id="{{rootId}}-msitrep" type="text" name="system.mission.sitrep" value="{{system.mission.sitrep}}" {{disabled (not editable)}}>
-      </div>
-      <div class="form-group">
-        <label for="{{rootId}}-mstatus">{{localize "LANCERPARTY.Mission.Status"}}</label>
-        <select id="{{rootId}}-mstatus" name="system.mission.status" {{disabled (not editable)}}>
-          {{selectOptions statuses selected=system.mission.status valueAttr="value" labelAttr="label"}}
-        </select>
-      </div>
+    <div class="lp-field lp-field-grow">
+      <label for="{{rootId}}-mname">{{localize "LANCERPARTY.Mission.Name"}}</label>
+      <input id="{{rootId}}-mname" type="text" name="system.mission.name" value="{{system.mission.name}}" placeholder="{{localize "LANCERPARTY.Mission.Untitled"}}" {{disabled (not editable)}}>
     </div>
-    <div class="lp-briefing">
-      <label>{{localize "LANCERPARTY.Mission.Briefing"}}</label>
-      {{#if editable}}
-      {{formInput systemFields.mission.fields.briefing name="system.mission.briefing" value=sourceSystem.mission.briefing enriched=enrichedBriefing toggled=true}}
-      {{else}}
-      <div class="lp-prose">{{{enrichedBriefing}}}</div>
-      {{/if}}
+    <div class="lp-field">
+      <label for="{{rootId}}-msitrep" data-tooltip="LANCERPARTY.Mission.SitrepHint">{{localize "LANCERPARTY.Mission.Sitrep"}}</label>
+      <input id="{{rootId}}-msitrep" type="text" name="system.mission.sitrep" value="{{system.mission.sitrep}}" {{disabled (not editable)}}>
     </div>
-  </fieldset>
+    <div class="lp-field">
+      <label for="{{rootId}}-mstatus">{{localize "LANCERPARTY.Mission.Status"}}</label>
+      <select id="{{rootId}}-mstatus" name="system.mission.status" {{disabled (not editable)}}>
+        {{selectOptions statuses selected=system.mission.status valueAttr="value" labelAttr="label"}}
+      </select>
+    </div>
+  </div>
+  <div class="lp-effect-box lp-briefing">
+    <span class="lp-effect-tag">{{localize "LANCERPARTY.Mission.Briefing"}}</span>
+    {{#if editable}}
+    {{formInput systemFields.mission.fields.briefing name="system.mission.briefing" value=sourceSystem.mission.briefing enriched=enrichedBriefing toggled=true}}
+    {{else}}
+    <div class="lp-prose">{{{enrichedBriefing}}}</div>
+    {{/if}}
+  </div>
 
   <div class="lp-columns">
-    <fieldset class="lp-objectives">
-      <legend>{{localize "LANCERPARTY.Objective.Title"}} <span class="lp-dim">{{objectivesDone}}/{{objectives.length}}</span></legend>
-      <ul class="lp-objective-list">
+    <div class="lp-column">
+      <div class="lp-section-bar lp-bar-secondary">
+        <span class="lp-section-title">{{localize "LANCERPARTY.Objective.Title"}}</span>
+        <span class="lp-section-right"><span class="lp-section-count">{{objectivesDone}} / {{objectives.length}}</span></span>
+      </div>
+      <ul class="lp-rows">
         {{#each objectives as |o|}}
-        <li class="lp-objective{{#if o.done}} done{{/if}}{{#if o.hidden}} lp-gm-hidden{{/if}}" data-objective-id="{{o.id}}">
+        <li class="lp-row lp-objective{{#if o.done}} done{{/if}}{{#if o.hidden}} lp-gm-hidden{{/if}}" data-objective-id="{{o.id}}">
           <button type="button" class="lp-check" data-action="objectiveToggle" data-lp-contrib
                   aria-pressed="{{#if o.done}}true{{else}}false{{/if}}" aria-label="{{localize "LANCERPARTY.Objective.Toggle"}}">
             <i class="fa-{{#if o.done}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i>
           </button>
           {{#if @root.manage}}
-          <input type="text" value="{{o.text}}" data-lp-change="objectiveText" data-id="{{o.id}}" aria-label="{{localize "LANCERPARTY.Objective.Text"}}">
-          <a data-action="objectiveHide" data-tooltip="LANCERPARTY.Common.ToggleHidden"><i class="fa-solid {{#if o.hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></a>
-          <a data-action="objectiveDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
+          <input type="text" class="lp-row-input" value="{{o.text}}" data-lp-change="objectiveText" data-id="{{o.id}}" aria-label="{{localize "LANCERPARTY.Objective.Text"}}">
+          <a class="lp-row-icon" data-action="objectiveHide" data-tooltip="LANCERPARTY.Common.ToggleHidden"><i class="fa-solid {{#if o.hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></a>
+          <a class="lp-row-icon" data-action="objectiveDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
           {{else}}
-          <span class="lp-objective-text">{{o.text}}</span>
+          <span class="lp-row-title lp-objective-text">{{o.text}}</span>
           {{/if}}
         </li>
         {{else}}
-        <li class="lp-dim">{{localize "LANCERPARTY.Objective.None"}}</li>
+        <li class="lp-row lp-row-empty">{{localize "LANCERPARTY.Objective.None"}}</li>
         {{/each}}
       </ul>
       {{#if contribute}}
       <div class="lp-add-row" data-lp-new-objective>
         <input type="text" data-lp-submit="objectiveAdd" data-lp-contrib placeholder="{{localize "LANCERPARTY.Objective.New"}}">
-        <button type="button" data-action="objectiveAdd" data-lp-contrib aria-label="{{localize "LANCERPARTY.Objective.Add"}}"><i class="fa-solid fa-plus"></i></button>
+        <button type="button" class="lp-add-button" data-action="objectiveAdd" data-lp-contrib aria-label="{{localize "LANCERPARTY.Objective.Add"}}"><i class="fa-solid fa-plus"></i></button>
       </div>
       {{/if}}
-    </fieldset>
+    </div>
 
-    <fieldset class="lp-clocks">
-      <legend>{{localize "LANCERPARTY.Clock.Title"}}
-        {{#if manage}}{{#if clocks.length}}<a class="lp-legend-action" data-action="clockReset" data-tooltip="LANCERPARTY.Clock.ResetAll"><i class="fa-solid fa-rotate-left"></i></a>{{/if}}{{/if}}
-      </legend>
+    <div class="lp-column">
+      <div class="lp-section-bar lp-bar-success">
+        <span class="lp-section-title">{{localize "LANCERPARTY.Clock.Title"}}</span>
+        <span class="lp-section-right">
+          <span class="lp-section-count">{{clocks.length}}</span>
+          {{#if manage}}{{#if clocks.length}}<a class="lp-bar-icon" data-action="clockReset" data-tooltip="LANCERPARTY.Clock.ResetAll"><i class="fa-solid fa-rotate-left"></i></a>{{/if}}{{/if}}
+        </span>
+      </div>
       <div class="lp-clock-grid">
         {{#each clocks as |c|}}
         <div class="lp-clock lp-clock-{{c.kind}}{{#if c.full}} full{{/if}}{{#if c.hidden}} lp-gm-hidden{{/if}}" data-clock-id="{{c.id}}">
@@ -88,13 +94,13 @@
               {{#each @root.clockSizes as |n|}}<option value="{{n}}" {{#if (eq n c.segments)}}selected{{/if}}>{{n}}</option>{{/each}}
             </select>
             {{#if @root.manage}}
-            <a data-action="clockHide" data-tooltip="LANCERPARTY.Common.ToggleHidden"><i class="fa-solid {{#if c.hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></a>
-            <a data-action="clockDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
+            <a class="lp-row-icon" data-action="clockHide" data-tooltip="LANCERPARTY.Common.ToggleHidden"><i class="fa-solid {{#if c.hidden}}fa-eye-slash{{else}}fa-eye{{/if}}"></i></a>
+            <a class="lp-row-icon" data-action="clockDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>
             {{/if}}
           </div>
         </div>
         {{else}}
-        <p class="lp-dim">{{localize "LANCERPARTY.Clock.None"}}</p>
+        <p class="lp-row lp-row-empty">{{localize "LANCERPARTY.Clock.None"}}</p>
         {{/each}}
       </div>
       {{#if contribute}}
@@ -107,28 +113,26 @@
         <select data-lp-field="segments" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Segments"}}">
           {{#each clockSizes as |n|}}<option value="{{n}}" {{#if (eq n 4)}}selected{{/if}}>{{n}}</option>{{/each}}
         </select>
-        <button type="button" data-action="clockAdd" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Add"}}"><i class="fa-solid fa-plus"></i></button>
+        <button type="button" class="lp-add-button" data-action="clockAdd" data-lp-contrib aria-label="{{localize "LANCERPARTY.Clock.Add"}}"><i class="fa-solid fa-plus"></i></button>
       </div>
       {{/if}}
-    </fieldset>
+    </div>
   </div>
 
-  <fieldset class="lp-log">
-    <legend>{{localize "LANCERPARTY.Log.Title"}}</legend>
-    {{#if log.length}}
-    <table class="lp-log-table">
-      <thead><tr><th>#</th><th>{{localize "LANCERPARTY.Mission.Name"}}</th><th>{{localize "LANCERPARTY.Mission.Sitrep"}}</th><th>{{localize "LANCERPARTY.Log.Outcome"}}</th><th>{{localize "LANCERPARTY.Log.Date"}}</th>{{#if manage}}<th></th>{{/if}}</tr></thead>
-      <tbody>
-        {{#each log as |e|}}
-        <tr data-log-id="{{e.id}}" class="outcome-{{e.outcome}}" {{#if e.notes}}title="{{e.notes}}"{{/if}}>
-          <td>{{e.number}}</td><td>{{e.name}}</td><td>{{e.sitrep}}</td><td>{{e.outcomeLabel}}</td><td>{{e.date}}</td>
-          {{#if @root.manage}}<td><a data-action="logDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a></td>{{/if}}
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
+  <div class="lp-section-bar lp-bar-neutral">
+    <span class="lp-section-title">{{localize "LANCERPARTY.Log.Title"}}</span>
+    <span class="lp-section-right"><span class="lp-section-count">{{log.length}}</span></span>
+  </div>
+  <ul class="lp-rows">
+    {{#each log as |e|}}
+    <li class="lp-row lp-log-row outcome-{{e.outcome}}" data-log-id="{{e.id}}" {{#if e.notes}}title="{{e.notes}}"{{/if}}>
+      <span class="lp-log-number">#{{e.number}}</span>
+      <span class="lp-row-main"><span class="lp-row-title">{{#if e.name}}{{e.name}}{{else}}{{localize "LANCERPARTY.Mission.Untitled"}}{{/if}}</span><span class="lp-row-sub">{{e.sitrep}}{{#if e.date}} · {{e.date}}{{/if}}</span></span>
+      <span class="lp-chip lp-chip-{{e.outcome}}">{{e.outcomeLabel}}</span>
+      {{#if @root.manage}}<a class="lp-row-icon" data-action="logDelete" data-tooltip="LANCERPARTY.Common.Delete"><i class="fa-solid fa-trash"></i></a>{{/if}}
+    </li>
     {{else}}
-    <p class="lp-dim">{{localize "LANCERPARTY.Log.None"}}</p>
-    {{/if}}
-  </fieldset>
+    <li class="lp-row lp-row-empty">{{localize "LANCERPARTY.Log.None"}}</li>
+    {{/each}}
+  </ul>
 </section>

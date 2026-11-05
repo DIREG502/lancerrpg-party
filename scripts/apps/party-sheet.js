@@ -28,7 +28,7 @@ const TextEditor = () => foundry.applications.ux.TextEditor.implementation;
 export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static DEFAULT_OPTIONS = {
     classes: ["lancer-party", "lancer-party-sheet"],
-    position: { width: 860, height: 780 },
+    position: { width: 920, height: 820 },
     window: { resizable: true, icon: "fa-solid fa-people-group" },
     form: { submitOnChange: true },
     actions: {
@@ -65,7 +65,7 @@ export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   static PARTS = {
     header: { template: `${TEMPLATES}/sheet/header.hbs` },
-    tabs: { template: "templates/generic/tab-navigation.hbs" },
+    sidebar: { template: `${TEMPLATES}/sheet/sidebar.hbs`, scrollable: [""] },
     squad: { template: `${TEMPLATES}/sheet/squad.hbs`, scrollable: [""] },
     mission: { template: `${TEMPLATES}/sheet/mission.hbs`, scrollable: [""] },
     reserves: { template: `${TEMPLATES}/sheet/reserves.hbs`, scrollable: [""] },
@@ -99,6 +99,7 @@ export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   _configureRenderParts(options) {
     const parts = super._configureRenderParts(options);
     if (this.isLimitedView) {
+      delete parts.sidebar;
       delete parts.mission;
       delete parts.reserves;
       delete parts.notes;
@@ -168,6 +169,9 @@ export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       members,
       hasMissing: members.some(m => m.missing),
       summary: summarizeParty(present),
+      missionStatusLabel: localize(`LANCERPARTY.MissionStatus.${system.mission.status}`),
+      visibleObjectives: system.objectives.filter(o => manage || !o.hidden).length,
+      doneObjectives: system.objectives.filter(o => (manage || !o.hidden) && o.done).length,
       tabs: this._prepareTabs("primary")
     });
     return context;
@@ -231,6 +235,7 @@ export class PartySheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   async _onRender(context, options) {
     await super._onRender(context, options);
     const html = this.element;
+    html.classList.toggle("lp-limited", this.isLimitedView);
     this.#bindMemberDrag(html);
     // Inline edits that map to operations (array rows can't go through the normal form submit).
     for (const input of html.querySelectorAll("[data-lp-change]")) {
