@@ -4,15 +4,17 @@
   "description": "Squads for the LANCER system: a Party actor shown as a folder at the top of the Actors tab, with pilots, their active mechs and NPC allies; a squad status sheet; group checks rolled through Lancer's own roll flow; mission tracking with objectives, progress and threat clocks; shared reserves and manna; party-wide Full Repair, License Level awards, token deployment and combat setup. Inspired by the Party features of Pathfinder 2e and the group roll cards of Call of Cthulhu 7e.",
   "version": "1.0.0",
   "authors": [
-    { "name": "DIREG502" }
+    {
+      "name": "DIREG502"
+    }
   ],
-  "url": "https://github.com/DIREG502/lancer-party",
-  "manifest": "https://github.com/DIREG502/lancer-party/releases/latest/download/module.json",
-  "download": "https://github.com/DIREG502/lancer-party/releases/download/v1.0.0/module.zip",
+  "url": "https://github.com/DIREG502/lancerrpg-party",
+  "manifest": "https://github.com/DIREG502/lancerrpg-party/releases/latest/download/module.json",
+  "download": "https://github.com/DIREG502/lancerrpg-party/releases/download/v1.0.0/module.zip",
   "license": "LICENSE",
   "readme": "README.md",
   "changelog": "CHANGELOG.md",
-  "bugs": "https://github.com/DIREG502/lancer-party/issues",
+  "bugs": "https://github.com/DIREG502/lancerrpg-party/issues",
   "compatibility": {
     "minimum": "13.341",
     "verified": "13",
@@ -34,7 +36,10 @@
   "documentTypes": {
     "Actor": {
       "party": {
-        "htmlFields": ["description", "mission.briefing"]
+        "htmlFields": [
+          "description",
+          "mission.briefing"
+        ]
       }
     }
   },
@@ -45,13 +50,29 @@
     "styles/lancer-party.css"
   ],
   "languages": [
-    { "lang": "en", "name": "English", "path": "lang/en.json" },
-    { "lang": "ru", "name": "Русский", "path": "lang/ru.json" }
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
+    }
   ],
   "flags": {
     "hotReload": {
-      "extensions": ["css", "hbs", "json"],
-      "paths": ["styles", "templates", "lang"]
+      "extensions": [
+        "css",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "styles",
+        "templates",
+        "lang"
+      ]
     }
   }
 }

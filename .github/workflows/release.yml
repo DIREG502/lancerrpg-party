@@ -1,6 +1,7 @@
 name: Release
 
-# Builds module.zip and attaches it (plus the versioned module.json) to a GitHub release.
+# On a published release: stamp the tag's version and download URL into module.json,
+# build module.zip, and attach both to the release.
 on:
   release:
     types: [published]
@@ -49,8 +50,9 @@ jobs:
           cat module.json
 
       - name: Build module.zip
+        # templates/ and assets/ are required at runtime (sheet/sidebar templates, party icon).
         run: |
-          zip -r module.zip module.json LICENSE README.md CHANGELOG.md scripts styles lang templates assets
+          zip -r module.zip module.json README.md LICENSE CHANGELOG.md scripts styles lang templates assets
           unzip -l module.zip
 
       - name: Attach module.json and module.zip to the release

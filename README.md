@@ -18,7 +18,7 @@ Features are modelled on the Party in Pathfinder 2e and the group roll cards in 
 **From a manifest URL** (once a GitHub release exists):
 
 1. In Foundry go to *Add-on Modules → Install Module*.
-2. Paste `https://github.com/DIREG502/lancer-party/releases/latest/download/module.json` and install.
+2. Paste `https://github.com/DIREG502/lancerrpg-party/releases/latest/download/module.json` and install.
 3. In your Lancer world: *Game Settings → Manage Modules*, enable **Lancer Party**.
 
 **Manually**: copy this folder to `{userData}/Data/modules/lancer-party/`. The folder name must be `lancer-party`. You only need `module.json`, `scripts/`, `templates/`, `styles/`, `lang/`, `assets/`, `LICENSE`, `README.md` and `CHANGELOG.md`; `node_modules/` and `tests/` are for development. Restart Foundry and enable the module in the world.
