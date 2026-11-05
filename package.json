@@ -5,7 +5,7 @@
   "description": "Development metadata for tests and checks only. Not needed by Foundry VTT.",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/",
+    "test": "node --test \"tests/**/*.test.js\"",
     "check": "node tests/tools/check-package.mjs",
     "verify": "npm run check && npm test"
   },
